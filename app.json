@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Aurumtrack",
+    "name": "GoldSphere Global Pro",
     "slug": "aurumtrack",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,7 +31,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#000000"
         }
       ]
     ],
