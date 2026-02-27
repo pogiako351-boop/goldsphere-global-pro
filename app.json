@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "GoldSphere Global Pro",
-    "slug": "aurumtrack",
+    "slug": "goldsphere-global-pro",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.mrvin.aurumtrack"
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +39,13 @@
     "experiments": {
       "typedRoutes": true,
       "baseUrl": ""
+    },
+    "owner": "mr.vin",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1f5dfe9a-9f88-4a97-a8da-beabedf7914d"
+      }
     }
   }
 }
