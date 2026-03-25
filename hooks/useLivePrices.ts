@@ -12,9 +12,13 @@ interface LivePriceData {
   silverChangePercent: number;
   lastUpdated: string;
   isLive: boolean;
+  isStale?: boolean; // Added to track drift
 }
 
-const GRAMS_PER_OUNCE = 31.1035;
+/** * HIGH-PRECISION CONSTANT: 
+ * Professional dollar-region standard is 31.1034768g per Troy Ounce.
+ */
+const TROY_OUNCE_GRAMS = 31.1034768;
 
 const PURITY = {
   '24k': 0.999,
@@ -23,26 +27,29 @@ const PURITY = {
   '14k': 0.583,
 };
 
+/**
+ * Updated Fallbacks for March 25, 2026 Volatility
+ */
 function getDefaultPrices(): LivePriceData {
-  const goldPerGram = CONFIG.FALLBACK_GOLD_PRICE_OZ / GRAMS_PER_OUNCE;
-  const silverPerGram = CONFIG.FALLBACK_SILVER_PRICE_OZ / GRAMS_PER_OUNCE;
+  const goldPerGram = 4557.67 / TROY_OUNCE_GRAMS;
+  const silverPerGram = 73.25 / TROY_OUNCE_GRAMS;
   return {
-    goldPricePerOz: CONFIG.FALLBACK_GOLD_PRICE_OZ,
-    silverPricePerOz: CONFIG.FALLBACK_SILVER_PRICE_OZ,
+    goldPricePerOz: 4557.67,
+    silverPricePerOz: 73.25,
     goldPricePerGram: Math.round(goldPerGram * 100) / 100,
     silverPricePerGram: Math.round(silverPerGram * 100) / 100,
-    goldChange24h: 1.23,
-    goldChangePercent: 1.61,
-    silverChange24h: -0.02,
-    silverChangePercent: -2.11,
+    goldChange24h: 89.20,
+    goldChangePercent: 2.00,
+    silverChange24h: 1.45,
+    silverChangePercent: 2.07,
     lastUpdated: new Date().toLocaleTimeString('en-US', {
-      timeZone: 'UTC',
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
       timeZoneName: 'short'
     }),
-    isLive: true,
+    isLive: false,
+    isStale: false,
   };
 }
 
@@ -52,71 +59,86 @@ export function useLivePrices() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchPrices = useCallback(async () => {
-    // Force live fetch by bypassing demo key check
-    if (false) {
-      setPrices(getDefaultPrices());
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
 
     try {
+      // ZERO-CACHE: Appending timestamp to bypass Netlify/Browser edge caching
+      const cacheBuster = `?t=${Date.now()}`;
+      
       const [goldRes, silverRes] = await Promise.all([
-        fetch(`${CONFIG.GOLD_API_BASE_URL}/XAU/USD`, {
+        fetch(`${CONFIG.GOLD_API_BASE_URL}/XAU/USD${cacheBuster}`, {
           headers: {
             'x-access-token': CONFIG.GOLD_API_KEY,
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
           },
         }),
-        fetch(`${CONFIG.GOLD_API_BASE_URL}/XAG/USD`, {
+        fetch(`${CONFIG.GOLD_API_BASE_URL}/XAG/USD${cacheBuster}`, {
           headers: {
             'x-access-token': CONFIG.GOLD_API_KEY,
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
           },
         }),
       ]);
 
-      if (!goldRes.ok || !silverRes.ok) {
-        throw new Error('Failed to fetch prices');
-      }
+      if (!goldRes.ok || !silverRes.ok) throw new Error('API Sync Failed');
 
       const goldData = await goldRes.json();
       const silverData = await silverRes.json();
 
-      const goldPerGram = goldData.price / GRAMS_PER_OUNCE;
-      const silverPerGram = silverData.price / GRAMS_PER_OUNCE;
+      // DRIFT CHECK: Check if the data is older than 2 minutes
+      const now = Math.floor(Date.now() / 1000);
+      const isStale = (now - (goldData.timestamp || now)) > 120;
+
+      // PRECISION MAPPING: Prioritize 'ask' price for dollar-region buyers
+      const gPrice = goldData.ask || goldData.price;
+      const sPrice = silverData.ask || silverData.price;
+
+      const goldPerGram = gPrice / TROY_OUNCE_GRAMS;
+      const silverPerGram = sPrice / TROY_OUNCE_GRAMS;
 
       setPrices({
-        goldPricePerOz: goldData.price,
-        silverPricePerOz: silverData.price,
+        goldPricePerOz: gPrice,
+        silverPricePerOz: sPrice,
         goldPricePerGram: Math.round(goldPerGram * 100) / 100,
         silverPricePerGram: Math.round(silverPerGram * 100) / 100,
-        goldChange24h: Math.round((goldData.ch || 0) / GRAMS_PER_OUNCE * 100) / 100,
+        goldChange24h: Math.round((goldData.ch || 0) / TROY_OUNCE_GRAMS * 100) / 100,
         goldChangePercent: Math.round((goldData.chp || 0) * 100) / 100,
-        silverChange24h: Math.round((silverData.ch || 0) / GRAMS_PER_OUNCE * 100) / 100,
+        silverChange24h: Math.round((silverData.ch || 0) / TROY_OUNCE_GRAMS * 100) / 100,
         silverChangePercent: Math.round((silverData.chp || 0) * 100) / 100,
         lastUpdated: new Date().toLocaleTimeString('en-US', {
-          timeZone: 'UTC',
           hour: '2-digit',
           minute: '2-digit',
-          second: '2-digit',
-          timeZoneName: 'short'
+          second: '2-digit'
         }),
         isLive: true,
+        isStale
       });
     } catch (err) {
-      console.error('Price fetch error:', err);
-      setPrices(getDefaultPrices());
+      console.error('Precision Fetch Error:', err);
+      setError('Live sync unavailable');
     } finally {
       setIsLoading(false);
     }
   }, []);
 
+  // Sync Logic: Refresh every 30s + immediate fetch on window focus
   useEffect(() => {
     fetchPrices();
-    const interval = setInterval(fetchPrices, CONFIG.PRICE_REFRESH_INTERVAL || 60000);
-    return () => clearInterval(interval);
+    
+    const handleFocus = () => fetchPrices();
+    window.addEventListener('focus', handleFocus);
+
+    const interval = setInterval(fetchPrices, 30000); // 30s High-Frequency
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, [fetchPrices]);
 
   const getKaratPrice = useCallback(
@@ -145,5 +167,6 @@ export function useLivePrices() {
   };
 }
 
-export { PURITY, GRAMS_PER_OUNCE };
+export { PURITY, TROY_OUNCE_GRAMS as GRAMS_PER_OUNCE };
 export type { LivePriceData };
+    
