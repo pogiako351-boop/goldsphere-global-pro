@@ -5,7 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import AdBanner from '@/components/AdBanner';
+import { Colors, FontSizes, Spacing } from '@/constants/theme';
+import CONFIG from '@/config';
 
 interface MenuItemProps {
   icon: string;
@@ -13,20 +15,20 @@ interface MenuItemProps {
   subtitle: string;
   onPress: () => void;
   badge?: string;
-  premium?: boolean;
+  highlight?: boolean;
 }
 
-function MenuItem({ icon, label, subtitle, onPress, badge, premium }: MenuItemProps) {
+function MenuItem({ icon, label, subtitle, onPress, badge, highlight }: MenuItemProps) {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-      <GlassmorphicCard highlight={premium} style={styles.menuItem}>
+      <GlassmorphicCard highlight={highlight} style={styles.menuItem}>
         <View style={styles.menuRow}>
-          <View style={[styles.menuIcon, premium && styles.menuIconPremium]}>
-            <Ionicons name={icon as any} size={22} color={premium ? Colors.gold : Colors.textSecondary} />
+          <View style={[styles.menuIcon, highlight && styles.menuIconHighlight]}>
+            <Ionicons name={icon as any} size={22} color={highlight ? Colors.gold : Colors.textSecondary} />
           </View>
           <View style={styles.menuContent}>
             <View style={styles.menuLabelRow}>
-              <Text style={[styles.menuLabel, premium && styles.menuLabelPremium]}>{label}</Text>
+              <Text style={[styles.menuLabel, highlight && styles.menuLabelHighlight]}>{label}</Text>
               {badge && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{badge}</Text>
@@ -59,34 +61,11 @@ export default function MoreScreen() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>More</Text>
-          <Text style={styles.headerSubtitle}>SETTINGS & PREMIUM</Text>
+          <Text style={styles.headerSubtitle}>SETTINGS & TOOLS</Text>
         </View>
 
-        {/* Premium CTA */}
-        <TouchableOpacity activeOpacity={0.8} onPress={() => router.push('/premium')}>
-          <GlassmorphicCard highlight style={styles.premiumCard}>
-            <LinearGradient
-              colors={['rgba(212, 175, 55, 0.2)', 'rgba(212, 175, 55, 0.05)']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.premiumGradient}
-            >
-              <View style={styles.premiumContent}>
-                <Ionicons name="diamond" size={36} color={Colors.gold} />
-                <View style={styles.premiumText}>
-                  <Text style={styles.premiumTitle}>Upgrade to Premium</Text>
-                  <Text style={styles.premiumDesc}>
-                    Unlock AI insights, ad-free experience & more
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.premiumBtn}>
-                <Text style={styles.premiumBtnText}>View Plans</Text>
-                <Ionicons name="arrow-forward" size={16} color={Colors.black} />
-              </View>
-            </LinearGradient>
-          </GlassmorphicCard>
-        </TouchableOpacity>
+        {/* Top Ad */}
+        <AdBanner placement="top" />
 
         {/* Menu Items */}
         <View style={styles.sectionHeader}>
@@ -105,7 +84,7 @@ export default function MoreScreen() {
         <MenuItem
           icon="time-outline"
           label="Price History"
-          subtitle="View past prices & trends"
+          subtitle="View past prices & export CSV"
           onPress={() => router.push('/history')}
         />
 
@@ -114,50 +93,53 @@ export default function MoreScreen() {
           label="AI Market Insights"
           subtitle="AI-powered predictions & analysis"
           onPress={() => router.push('/ai-insights')}
-          badge="PRO"
-          premium
+          badge="FREE"
+          highlight
         />
 
         <MenuItem
           icon="download-outline"
-          label="Export Data"
-          subtitle="Download price data in CSV"
-          onPress={() => router.push('/premium')}
-          badge="PRO"
-          premium
+          label="Export Data (CSV)"
+          subtitle="Download price data for free"
+          onPress={() => router.push('/history')}
+          badge="FREE"
+          highlight
         />
 
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
-          <Text style={styles.sectionTitle}>ABOUT</Text>
+          <Text style={styles.sectionTitle}>LEGAL & INFO</Text>
           <View style={styles.sectionLine} />
         </View>
 
         <MenuItem
           icon="information-circle-outline"
           label="About GoldSphere"
-          subtitle="Version 1.0.0"
-          onPress={() => {}}
+          subtitle={`Version ${CONFIG.APP_VERSION}`}
+          onPress={() => router.push('/about')}
         />
 
         <MenuItem
-          icon="star-outline"
-          label="Rate this App"
-          subtitle="Help us improve"
-          onPress={() => {}}
+          icon="lock-closed-outline"
+          label="Privacy Policy"
+          subtitle="How we handle your data"
+          onPress={() => router.push('/privacy')}
         />
 
         <MenuItem
-          icon="mail-outline"
-          label="Contact Support"
-          subtitle="Get help from our team"
-          onPress={() => {}}
+          icon="document-text-outline"
+          label="Terms of Service"
+          subtitle="Usage terms and conditions"
+          onPress={() => router.push('/terms')}
         />
+
+        {/* Ad Banner */}
+        <AdBanner placement="mid" />
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>GoldSphere Global Pro v1.0.0</Text>
-          <Text style={styles.footerSubText}>Premium Market Data</Text>
+          <Text style={styles.footerText}>GoldSphere Global Pro v{CONFIG.APP_VERSION}</Text>
+          <Text style={styles.footerSubText}>Free Market Data for Everyone</Text>
         </View>
 
         <View style={{ height: 30 }} />
@@ -193,48 +175,6 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     letterSpacing: 3,
   },
-  premiumCard: {
-    marginBottom: Spacing.xxl,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
-  },
-  premiumGradient: {
-    margin: -Spacing.lg,
-    padding: Spacing.xl,
-  },
-  premiumContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.lg,
-    marginBottom: Spacing.lg,
-  },
-  premiumText: {
-    flex: 1,
-  },
-  premiumTitle: {
-    color: Colors.goldLight,
-    fontSize: FontSizes.xl,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
-  premiumDesc: {
-    color: Colors.textSecondary,
-    fontSize: FontSizes.sm,
-    lineHeight: 20,
-  },
-  premiumBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.sm,
-    backgroundColor: Colors.gold,
-    paddingVertical: Spacing.md,
-    borderRadius: BorderRadius.sm,
-  },
-  premiumBtnText: {
-    color: Colors.black,
-    fontSize: FontSizes.md,
-    fontWeight: '700',
-  },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -269,7 +209,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  menuIconPremium: {
+  menuIconHighlight: {
     backgroundColor: 'rgba(212, 175, 55, 0.12)',
   },
   menuContent: {
@@ -285,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.md,
     fontWeight: '600',
   },
-  menuLabelPremium: {
+  menuLabelHighlight: {
     color: Colors.goldLight,
   },
   menuSubtitle: {
@@ -294,13 +234,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   badge: {
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.green,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
   },
   badgeText: {
-    color: Colors.black,
+    color: Colors.white,
     fontSize: 9,
     fontWeight: '800',
     letterSpacing: 0.5,

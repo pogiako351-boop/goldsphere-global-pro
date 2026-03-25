@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,7 +14,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
+import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { useLocalStorage, STORAGE_KEYS } from '@/hooks/useLocalStorage';
 
 interface PriceAlert {
   id: string;
@@ -24,7 +26,7 @@ interface PriceAlert {
   enabled: boolean;
 }
 
-const initialAlerts: PriceAlert[] = [
+const defaultAlerts: PriceAlert[] = [
   { id: '1', metal: '24K Gold', condition: 'above', price: 80.0, enabled: true },
   { id: '2', metal: '24K Gold', condition: 'below', price: 75.0, enabled: true },
   { id: '3', metal: '22K Gold', condition: 'above', price: 74.0, enabled: false },
@@ -32,21 +34,38 @@ const initialAlerts: PriceAlert[] = [
 
 export default function AlertsScreen() {
   const insets = useSafeAreaInsets();
-  const [alerts, setAlerts] = useState<PriceAlert[]>(initialAlerts);
+  const { value: storedAlerts, setValue: saveAlerts, isLoaded } = useLocalStorage<PriceAlert[]>(
+    STORAGE_KEYS.ALERTS,
+    defaultAlerts
+  );
+  const [alerts, setAlerts] = useState<PriceAlert[]>(defaultAlerts);
   const [pushEnabled, setPushEnabled] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newMetal, setNewMetal] = useState('24K Gold');
   const [newCondition, setNewCondition] = useState<'above' | 'below'>('above');
   const [newPrice, setNewPrice] = useState('');
 
+  // Load alerts from storage
+  useEffect(() => {
+    if (isLoaded) {
+      setAlerts(storedAlerts);
+    }
+  }, [isLoaded, storedAlerts]);
+
+  // Save alerts to storage whenever they change
+  const updateAlerts = (newAlerts: PriceAlert[]) => {
+    setAlerts(newAlerts);
+    saveAlerts(newAlerts);
+  };
+
   const toggleAlert = (id: string) => {
-    setAlerts((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, enabled: !a.enabled } : a))
-    );
+    const updated = alerts.map((a) => (a.id === id ? { ...a, enabled: !a.enabled } : a));
+    updateAlerts(updated);
   };
 
   const deleteAlert = (id: string) => {
-    setAlerts((prev) => prev.filter((a) => a.id !== id));
+    const updated = alerts.filter((a) => a.id !== id);
+    updateAlerts(updated);
   };
 
   const addAlert = () => {
@@ -64,7 +83,7 @@ export default function AlertsScreen() {
       enabled: true,
     };
 
-    setAlerts((prev) => [...prev, newAlert]);
+    updateAlerts([...alerts, newAlert]);
     setNewPrice('');
     setShowAddForm(false);
   };
@@ -110,7 +129,7 @@ export default function AlertsScreen() {
             <View style={styles.pushContent}>
               <Text style={styles.pushLabel}>Push Notifications</Text>
               <Text style={styles.pushSubtext}>
-                {pushEnabled ? 'Enabled — you will receive price alerts' : 'Disabled'}
+                {pushEnabled ? 'Enabled - you will receive price alerts' : 'Disabled'}
               </Text>
             </View>
             <Switch
@@ -311,6 +330,9 @@ export default function AlertsScreen() {
             </LinearGradient>
           </TouchableOpacity>
         )}
+
+        {/* Ad Banner */}
+        <AdBanner placement="mid" />
       </ScrollView>
     </View>
   );

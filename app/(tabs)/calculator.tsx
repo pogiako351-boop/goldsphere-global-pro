@@ -15,7 +15,6 @@ import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
 import { goldPrices, currencyRates, currencySymbols } from '@/constants/goldData';
-import { router } from 'expo-router';
 
 const PURITIES = ['24k', '22k', '18k', '14k'];
 
@@ -49,10 +48,11 @@ export default function CalculatorScreen() {
     const baseValueUSD = weightNum * goldPrice.pricePerGram;
 
     const calculatedResults: CalculationResult[] = [
-      { currency: 'PHP', symbol: currencySymbols.PHP, value: baseValueUSD * currencyRates.PHP },
       { currency: 'USD', symbol: currencySymbols.USD, value: baseValueUSD * currencyRates.USD },
       { currency: 'EUR', symbol: currencySymbols.EUR, value: baseValueUSD * currencyRates.EUR },
       { currency: 'GBP', symbol: currencySymbols.GBP, value: baseValueUSD * currencyRates.GBP },
+      { currency: 'AED', symbol: currencySymbols.AED, value: baseValueUSD * currencyRates.AED },
+      { currency: 'INR', symbol: currencySymbols.INR, value: baseValueUSD * currencyRates.INR },
     ];
 
     setResults(calculatedResults);
@@ -180,26 +180,28 @@ export default function CalculatorScreen() {
             {results.map((result) => (
               <GlassmorphicCard
                 key={result.currency}
-                highlight={result.currency === 'PHP'}
+                highlight={result.currency === 'USD'}
                 style={styles.resultCard}
               >
                 <View style={styles.resultRow}>
                   <View style={styles.resultCurrency}>
                     <Text style={styles.resultFlag}>
-                      {result.currency === 'PHP'
-                        ? '🇵🇭'
-                        : result.currency === 'USD'
+                      {result.currency === 'USD'
                         ? '🇺🇸'
                         : result.currency === 'EUR'
                         ? '🇪🇺'
-                        : '🇬🇧'}
+                        : result.currency === 'GBP'
+                        ? '🇬🇧'
+                        : result.currency === 'AED'
+                        ? '🇦🇪'
+                        : '🇮🇳'}
                     </Text>
                     <Text style={styles.resultCurrencyText}>{result.currency}</Text>
                   </View>
                   <Text
                     style={[
                       styles.resultValue,
-                      result.currency === 'PHP' && styles.resultValueHighlight,
+                      result.currency === 'USD' && styles.resultValueHighlight,
                     ]}
                   >
                     {result.symbol}
@@ -215,7 +217,7 @@ export default function CalculatorScreen() {
         )}
 
         {/* Ad Banner */}
-        <AdBanner onUpgrade={() => router.push('/premium')} />
+        <AdBanner placement="mid" />
 
         <View style={{ height: 30 }} />
       </ScrollView>

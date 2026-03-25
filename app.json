@@ -2,7 +2,7 @@
   "expo": {
     "name": "GoldSphere Global Pro",
     "slug": "goldsphere-global-pro",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "fastshot",
@@ -22,7 +22,12 @@
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "name": "GoldSphere Global Pro",
+      "shortName": "GoldSphere",
+      "description": "Track live gold and silver prices worldwide",
+      "themeColor": "#000000",
+      "backgroundColor": "#000000"
     },
     "plugins": [
       "expo-router",

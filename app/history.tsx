@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,8 +15,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import SimpleLineChart from '@/components/SimpleLineChart';
+import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
-import { generateDailyPrices, generateHistoricalData } from '@/constants/goldData';
+import { generateDailyPrices, generateHistoricalData, exportToCSV, downloadCSV } from '@/constants/goldData';
 
 const VIEW_MODES = ['Daily', 'Weekly', 'Monthly'];
 
@@ -34,14 +36,17 @@ export default function HistoryScreen() {
   }, [viewMode]);
 
   const handleExport = () => {
-    Alert.alert(
-      'Premium Feature',
-      'Export data to CSV is available for Premium subscribers.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Upgrade', onPress: () => router.push('/premium') },
-      ]
-    );
+    if (Platform.OS === 'web') {
+      const csvContent = exportToCSV(tableData);
+      const filename = `goldsphere-prices-${VIEW_MODES[viewMode].toLowerCase()}-${new Date().toISOString().split('T')[0]}.csv`;
+      downloadCSV(csvContent, filename);
+    } else {
+      Alert.alert(
+        'Export CSV',
+        'CSV export is available on the web version. Visit our website to download your data.',
+        [{ text: 'OK' }]
+      );
+    }
   };
 
   return (
@@ -202,27 +207,25 @@ export default function HistoryScreen() {
           </View>
         )}
 
-        {/* Export Premium Button */}
+        {/* Export Button */}
         <TouchableOpacity
-          style={styles.premiumExportBtn}
+          style={styles.exportFullBtn}
           onPress={handleExport}
           activeOpacity={0.7}
         >
-          <GlassmorphicCard highlight>
-            <View style={styles.premiumExportRow}>
-              <Ionicons name="diamond" size={22} color={Colors.gold} />
-              <View style={styles.premiumExportContent}>
-                <Text style={styles.premiumExportTitle}>Export Data (Premium)</Text>
-                <Text style={styles.premiumExportDesc}>
-                  Download historical data as CSV
-                </Text>
-              </View>
-              <View style={styles.premiumBadge}>
-                <Text style={styles.premiumBadgeText}>PRO</Text>
-              </View>
-            </View>
-          </GlassmorphicCard>
+          <LinearGradient
+            colors={[Colors.goldLight, Colors.gold, Colors.goldDark]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.exportFullGradient}
+          >
+            <Ionicons name="download" size={20} color={Colors.black} />
+            <Text style={styles.exportFullText}>Export CSV - Free</Text>
+          </LinearGradient>
         </TouchableOpacity>
+
+        {/* Ad Banner */}
+        <AdBanner placement="mid" />
       </ScrollView>
     </View>
   );
@@ -391,37 +394,22 @@ const styles = StyleSheet.create({
   changeCell: {
     flex: 0.8,
   },
-  premiumExportBtn: {
-    marginBottom: Spacing.lg,
+  exportFullBtn: {
+    borderRadius: BorderRadius.md,
+    overflow: 'hidden',
+    marginBottom: Spacing.xl,
   },
-  premiumExportRow: {
+  exportFullGradient: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.md,
+    justifyContent: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.lg,
   },
-  premiumExportContent: {
-    flex: 1,
-  },
-  premiumExportTitle: {
-    color: Colors.goldLight,
-    fontSize: FontSizes.md,
-    fontWeight: '600',
-  },
-  premiumExportDesc: {
-    color: Colors.textMuted,
-    fontSize: FontSizes.sm,
-    marginTop: 2,
-  },
-  premiumBadge: {
-    backgroundColor: Colors.gold,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4,
-  },
-  premiumBadgeText: {
+  exportFullText: {
     color: Colors.black,
-    fontSize: 10,
-    fontWeight: '800',
+    fontSize: FontSizes.lg,
+    fontWeight: '700',
     letterSpacing: 0.5,
   },
 });

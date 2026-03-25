@@ -162,7 +162,7 @@ export default function SplashScreen() {
 
       {/* Bottom decoration */}
       <Animated.View style={[styles.bottomDeco, taglineAnimatedStyle]}>
-        <Text style={styles.poweredBy}>PREMIUM MARKET DATA</Text>
+        <Text style={styles.poweredBy}>FREE MARKET DATA</Text>
       </Animated.View>
     </LinearGradient>
   );

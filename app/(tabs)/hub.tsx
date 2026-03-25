@@ -9,7 +9,7 @@ import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
 
-const CATEGORIES = ['All', 'Education', 'Guide', 'Investment'];
+const CATEGORIES = ['All', 'Investment', 'Education', 'Guide'];
 
 export default function KnowledgeHubScreen() {
   const insets = useSafeAreaInsets();
@@ -56,10 +56,10 @@ export default function KnowledgeHubScreen() {
                 <Ionicons name="star" size={12} color={Colors.gold} />
                 <Text style={styles.featuredBadgeText}>FEATURED</Text>
               </View>
-              <Text style={styles.featuredTitle}>Understanding Gold Purity & Karats</Text>
+              <Text style={styles.featuredTitle}>The 2026 Conflict Economy</Text>
               <Text style={styles.featuredDesc}>
-                Learn about the difference between 24k, 22k, 18k, and 14k gold and what purity
-                means for your investment.
+                How wars, sanctions, and geopolitical tensions are reshaping gold demand
+                and driving unprecedented investment in precious metals.
               </Text>
               <View style={styles.featuredFooter}>
                 <Text style={styles.featuredReadTime}>5 min read</Text>
@@ -141,7 +141,7 @@ export default function KnowledgeHubScreen() {
         ))}
 
         {/* Ad Banner */}
-        <AdBanner onUpgrade={() => router.push('/premium')} />
+        <AdBanner placement="mid" />
 
         <View style={{ height: 30 }} />
       </ScrollView>

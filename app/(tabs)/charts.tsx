@@ -8,7 +8,6 @@ import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
 import { generateHistoricalData, goldPrices } from '@/constants/goldData';
-import { router } from 'expo-router';
 
 const TIME_RANGES = [
   { label: '7D', days: 7 },
@@ -164,7 +163,7 @@ export default function ChartsScreen() {
         </GlassmorphicCard>
 
         {/* Ad Banner */}
-        <AdBanner onUpgrade={() => router.push('/premium')} />
+        <AdBanner placement="mid" />
 
         <View style={{ height: 30 }} />
       </ScrollView>

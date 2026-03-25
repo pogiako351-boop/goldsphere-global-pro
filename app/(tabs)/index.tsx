@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,21 +9,24 @@ import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
 import GoldShimmer from '@/components/GoldShimmer';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
-import { goldPrices, silverPrice } from '@/constants/goldData';
-import { getCurrentTimestamp } from '@/utils/formatters';
+import { useLivePrices } from '@/hooks/useLivePrices';
 
 export default function DashboardScreen() {
   const insets = useSafeAreaInsets();
   const [refreshing, setRefreshing] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState(getCurrentTimestamp());
+  const { prices, refresh } = useLivePrices();
 
-  const onRefresh = () => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      setLastUpdated(getCurrentTimestamp());
-      setRefreshing(false);
-    }, 1500);
-  };
+    refresh().finally(() => setRefreshing(false));
+  }, [refresh]);
+
+  const karatData = [
+    { karat: '24K', label: '24 Karat (99.9%)', factor: 0.999 },
+    { karat: '22K', label: '22 Karat (91.7%)', factor: 0.917 },
+    { karat: '18K', label: '18 Karat (75.0%)', factor: 0.750 },
+    { karat: '14K', label: '14 Karat (58.3%)', factor: 0.583 },
+  ];
 
   return (
     <View style={styles.container}>
@@ -59,23 +62,21 @@ export default function DashboardScreen() {
             >
               <Ionicons name="notifications-outline" size={22} color={Colors.gold} />
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.headerBtn}
-              onPress={() => router.push('/premium')}
-              activeOpacity={0.7}
-            >
-              <Ionicons name="diamond-outline" size={22} color={Colors.gold} />
-            </TouchableOpacity>
           </View>
         </View>
+
+        {/* Top Ad Banner */}
+        <AdBanner placement="top" />
 
         {/* Market Status */}
         <GlassmorphicCard style={styles.marketStatusCard}>
           <View style={styles.marketStatusRow}>
-            <View style={styles.marketDot} />
-            <Text style={styles.marketStatusText}>Markets Open</Text>
+            <View style={[styles.marketDot, !prices.isLive && styles.marketDotOffline]} />
+            <Text style={[styles.marketStatusText, !prices.isLive && styles.marketStatusTextOffline]}>
+              {prices.isLive ? 'Markets Open - Live Data' : 'Using Cached Data'}
+            </Text>
             <View style={styles.flex} />
-            <Text style={styles.lastUpdatedText}>Last updated: {lastUpdated}</Text>
+            <Text style={styles.lastUpdatedText}>Updated: {prices.lastUpdated}</Text>
           </View>
         </GlassmorphicCard>
 
@@ -87,18 +88,18 @@ export default function DashboardScreen() {
         {/* Gold Prices Section */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
-          <Text style={styles.sectionTitle}>GOLD PRICES</Text>
+          <Text style={styles.sectionTitle}>GOLD PRICES (USD)</Text>
           <View style={styles.sectionLine} />
         </View>
 
-        {goldPrices.map((item) => (
+        {karatData.map((item) => (
           <PriceCard
             key={item.karat}
             label={item.label}
-            karat={item.karat.toUpperCase()}
-            pricePerGram={item.pricePerGram}
-            change24h={item.change24h}
-            changePercent={item.changePercent}
+            karat={item.karat}
+            pricePerGram={Math.round(prices.goldPricePerGram * item.factor * 100) / 100}
+            change24h={Math.round(prices.goldChange24h * item.factor * 100) / 100}
+            changePercent={prices.goldChangePercent}
           />
         ))}
 
@@ -110,16 +111,16 @@ export default function DashboardScreen() {
         </View>
 
         <PriceCard
-          label={silverPrice.label}
+          label="Silver (99.9%)"
           karat="AG"
-          pricePerGram={silverPrice.pricePerGram}
-          change24h={silverPrice.change24h}
-          changePercent={silverPrice.changePercent}
+          pricePerGram={prices.silverPricePerGram}
+          change24h={prices.silverChange24h}
+          changePercent={prices.silverChangePercent}
           isSilver
         />
 
-        {/* Ad Banner */}
-        <AdBanner onUpgrade={() => router.push('/premium')} />
+        {/* Mid Ad Banner */}
+        <AdBanner placement="mid" />
 
         {/* Quick Actions */}
         <View style={styles.sectionHeader}>
@@ -170,7 +171,7 @@ export default function DashboardScreen() {
             >
               <Ionicons name="time" size={28} color={Colors.gold} />
               <Text style={styles.actionLabel}>History</Text>
-              <Text style={styles.actionSubLabel}>Past prices</Text>
+              <Text style={styles.actionSubLabel}>Past prices & CSV</Text>
             </LinearGradient>
           </TouchableOpacity>
 
@@ -259,10 +260,16 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: Colors.green,
   },
+  marketDotOffline: {
+    backgroundColor: '#FFA500',
+  },
   marketStatusText: {
     color: Colors.green,
     fontSize: FontSizes.sm,
     fontWeight: '600',
+  },
+  marketStatusTextOffline: {
+    color: '#FFA500',
   },
   lastUpdatedText: {
     color: Colors.textMuted,
