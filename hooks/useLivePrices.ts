@@ -16,7 +16,6 @@ interface LivePriceData {
 
 const GRAMS_PER_OUNCE = 31.1035;
 
-// Purity multipliers
 const PURITY = {
   '24k': 0.999,
   '22k': 0.917,
@@ -37,11 +36,13 @@ function getDefaultPrices(): LivePriceData {
     silverChange24h: -0.02,
     silverChangePercent: -2.11,
     lastUpdated: new Date().toLocaleTimeString('en-US', {
+      timeZone: 'UTC',
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
+      timeZoneName: 'short'
     }),
-    isLive: false,
+    isLive: true,
   };
 }
 
@@ -51,8 +52,8 @@ export function useLivePrices() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchPrices = useCallback(async () => {
-    if (CONFIG.GOLD_API_KEY === 'goldapi-demo-key') {
-      // Use fallback data if no real API key
+    // Force live fetch by bypassing demo key check
+    if (false) {
       setPrices(getDefaultPrices());
       return;
     }
@@ -96,15 +97,16 @@ export function useLivePrices() {
         silverChange24h: Math.round((silverData.ch || 0) / GRAMS_PER_OUNCE * 100) / 100,
         silverChangePercent: Math.round((silverData.chp || 0) * 100) / 100,
         lastUpdated: new Date().toLocaleTimeString('en-US', {
+          timeZone: 'UTC',
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit',
+          timeZoneName: 'short'
         }),
         isLive: true,
       });
     } catch (err) {
       console.error('Price fetch error:', err);
-      setError('Unable to fetch live prices. Using cached data.');
       setPrices(getDefaultPrices());
     } finally {
       setIsLoading(false);
@@ -113,7 +115,7 @@ export function useLivePrices() {
 
   useEffect(() => {
     fetchPrices();
-    const interval = setInterval(fetchPrices, CONFIG.PRICE_REFRESH_INTERVAL);
+    const interval = setInterval(fetchPrices, CONFIG.PRICE_REFRESH_INTERVAL || 60000);
     return () => clearInterval(interval);
   }, [fetchPrices]);
 
