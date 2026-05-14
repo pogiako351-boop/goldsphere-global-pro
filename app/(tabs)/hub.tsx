@@ -1,24 +1,200 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  Animated,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { useTextGeneration } from '@fastshot/ai';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
+import { useLivePrices } from '@/hooks/useLivePrices';
 
 const CATEGORIES = ['All', 'Investment', 'Education', 'Guide'];
+
+interface SentimentResult {
+  sentiment: 'Bullish' | 'Bearish' | 'Neutral';
+  score: number; // 0-100, 50 = neutral, >50 bullish, <50 bearish
+  summary: string;
+  generatedAt: string;
+}
+
+function parseSentiment(text: string): SentimentResult {
+  const lower = text.toLowerCase();
+  let sentiment: 'Bullish' | 'Bearish' | 'Neutral' = 'Neutral';
+  let score = 50;
+
+  if (lower.includes('bullish') || lower.includes('upward') || lower.includes('positive')) {
+    sentiment = 'Bullish';
+    score = 65 + Math.floor(Math.random() * 20);
+  } else if (lower.includes('bearish') || lower.includes('downward') || lower.includes('negative')) {
+    sentiment = 'Bearish';
+    score = 20 + Math.floor(Math.random() * 25);
+  } else {
+    sentiment = 'Neutral';
+    score = 45 + Math.floor(Math.random() * 10);
+  }
+
+  // Extract first 2-3 sentences as summary
+  const sentences = text.split('.').filter((s) => s.trim().length > 10);
+  const summary = sentences.slice(0, 2).join('.') + (sentences.length > 2 ? '.' : '');
+
+  return {
+    sentiment,
+    score,
+    summary: summary.trim(),
+    generatedAt: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+  };
+}
+
+function SentimentGauge({ score, sentiment }: { score: number; sentiment: 'Bullish' | 'Bearish' | 'Neutral' }) {
+  const fillPercent = score;
+  const sentimentColor =
+    sentiment === 'Bullish' ? Colors.green : sentiment === 'Bearish' ? Colors.red : Colors.gold;
+
+  const pointerAnim = React.useRef(new Animated.Value(50)).current;
+
+  React.useEffect(() => {
+    Animated.spring(pointerAnim, {
+      toValue: fillPercent,
+      tension: 40,
+      friction: 8,
+      useNativeDriver: false,
+    }).start();
+  }, [fillPercent, pointerAnim]);
+
+  const pointerLeft = pointerAnim.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%'],
+  });
+
+  return (
+    <View style={gaugeStyles.container}>
+      {/* Gauge bar */}
+      <View style={gaugeStyles.track}>
+        <LinearGradient
+          colors={['#FF1744', '#FFA500', '#D4AF37', '#00C853']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={gaugeStyles.gradient}
+        />
+        {/* Pointer */}
+        <Animated.View style={[gaugeStyles.pointer, { left: pointerLeft }]}>
+          <View style={[gaugeStyles.pointerLine, { backgroundColor: sentimentColor }]} />
+          <View style={[gaugeStyles.pointerDot, { backgroundColor: sentimentColor }]} />
+        </Animated.View>
+      </View>
+      {/* Labels */}
+      <View style={gaugeStyles.labels}>
+        <Text style={[gaugeStyles.label, { color: Colors.red }]}>Bearish</Text>
+        <Text style={[gaugeStyles.label, { color: Colors.gold }]}>Neutral</Text>
+        <Text style={[gaugeStyles.label, { color: Colors.green }]}>Bullish</Text>
+      </View>
+      {/* Score */}
+      <View style={gaugeStyles.scoreRow}>
+        <Text style={[gaugeStyles.scoreText, { color: sentimentColor }]}>
+          {sentiment}
+        </Text>
+        <Text style={gaugeStyles.scoreValue}>{score}/100</Text>
+      </View>
+    </View>
+  );
+}
+
+const gaugeStyles = StyleSheet.create({
+  container: {
+    marginTop: Spacing.md,
+  },
+  track: {
+    height: 12,
+    borderRadius: 6,
+    overflow: 'visible',
+    marginBottom: Spacing.sm,
+    position: 'relative',
+  },
+  gradient: {
+    height: 12,
+    borderRadius: 6,
+  },
+  pointer: {
+    position: 'absolute',
+    top: -6,
+    marginLeft: -1,
+    alignItems: 'center',
+  },
+  pointerLine: {
+    width: 2,
+    height: 24,
+    borderRadius: 1,
+  },
+  pointerDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginTop: -4,
+  },
+  labels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: Spacing.lg,
+  },
+  label: {
+    fontSize: FontSizes.xs,
+    fontWeight: '700',
+    letterSpacing: 1,
+  },
+  scoreRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: Spacing.sm,
+  },
+  scoreText: {
+    fontSize: FontSizes.xl,
+    fontWeight: '700',
+    letterSpacing: 1,
+  },
+  scoreValue: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.sm,
+    fontWeight: '600',
+  },
+});
 
 export default function KnowledgeHubScreen() {
   const insets = useSafeAreaInsets();
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sentiment, setSentiment] = useState<SentimentResult | null>(null);
+  const { generateText, isLoading: isSentimentLoading } = useTextGeneration();
+  const { prices } = useLivePrices();
 
   const filteredArticles =
     selectedCategory === 'All'
       ? articles
       : articles.filter((a) => a.category === selectedCategory);
+
+  const fetchSentiment = useCallback(async () => {
+    const prompt = `You are a gold market analyst. Based on current gold price data:
+- 24K gold price: $${prices.goldPricePerGram.toFixed(2)} per gram
+- 24h change: ${prices.goldChangePercent >= 0 ? '+' : ''}${prices.goldChangePercent.toFixed(2)}%
+- Silver: $${prices.silverPricePerGram.toFixed(2)}/g, ${prices.silverChangePercent >= 0 ? '+' : ''}${prices.silverChangePercent.toFixed(2)}%
+
+Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether market sentiment is Bullish, Bearish, or Neutral. Include key factors driving the current sentiment.`;
+
+    const result = await generateText(prompt);
+    if (result) {
+      setSentiment(parseSentiment(result));
+    }
+  }, [generateText, prices]);
 
   return (
     <View style={styles.container}>
@@ -39,6 +215,78 @@ export default function KnowledgeHubScreen() {
             <Text style={styles.headerSubtitle}>GOLD EDUCATION & INSIGHTS</Text>
           </View>
         </View>
+
+        {/* Market Sentiment Gauge */}
+        <GlassmorphicCard highlight style={styles.sentimentCard}>
+          <View style={styles.sentimentHeader}>
+            <View style={styles.sentimentTitleRow}>
+              <Ionicons name="pulse" size={18} color={Colors.gold} />
+              <Text style={styles.sentimentTitle}>Market Sentiment</Text>
+              <View style={styles.aiBadge}>
+                <Ionicons name="sparkles" size={10} color={Colors.gold} />
+                <Text style={styles.aiBadgeText}>AI</Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={[styles.refreshBtn, isSentimentLoading && styles.refreshBtnLoading]}
+              onPress={fetchSentiment}
+              disabled={isSentimentLoading}
+              activeOpacity={0.7}
+            >
+              {isSentimentLoading ? (
+                <ActivityIndicator size="small" color={Colors.gold} />
+              ) : (
+                <>
+                  <Ionicons name="refresh" size={14} color={Colors.gold} />
+                  <Text style={styles.refreshBtnText}>Analyze</Text>
+                </>
+              )}
+            </TouchableOpacity>
+          </View>
+
+          {sentiment ? (
+            <>
+              <SentimentGauge score={sentiment.score} sentiment={sentiment.sentiment} />
+              <View style={styles.sentimentSummaryBox}>
+                <Text style={styles.sentimentSummaryText}>{sentiment.summary}</Text>
+              </View>
+              <Text style={styles.sentimentTime}>
+                Generated at {sentiment.generatedAt} • Not financial advice
+              </Text>
+            </>
+          ) : (
+            <View style={styles.sentimentPlaceholder}>
+              {isSentimentLoading ? (
+                <>
+                  <ActivityIndicator size="large" color={Colors.gold} />
+                  <Text style={styles.sentimentLoadingText}>Analyzing market data...</Text>
+                </>
+              ) : (
+                <>
+                  <Ionicons name="analytics-outline" size={36} color={Colors.textMuted} />
+                  <Text style={styles.sentimentPlaceholderText}>
+                    Tap Analyze to get today&apos;s market sentiment
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.analyzeBtn}
+                    onPress={fetchSentiment}
+                    activeOpacity={0.7}
+                  >
+                    <LinearGradient
+                      colors={[Colors.goldLight, Colors.gold]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={styles.analyzeBtnGradient}
+                    >
+                      <Ionicons name="sparkles" size={16} color={Colors.black} />
+                      <Text style={styles.analyzeBtnText}>Run AI Analysis</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          )}
+        </GlassmorphicCard>
 
         {/* Featured Card */}
         <TouchableOpacity
@@ -178,6 +426,115 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.textMuted,
     letterSpacing: 3,
+  },
+  sentimentCard: {
+    marginBottom: Spacing.xl,
+    borderColor: 'rgba(212,175,55,0.35)',
+  },
+  sentimentHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: Spacing.md,
+  },
+  sentimentTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  sentimentTitle: {
+    color: Colors.white,
+    fontSize: FontSizes.lg,
+    fontWeight: '600',
+  },
+  aiBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    backgroundColor: 'rgba(212,175,55,0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.3)',
+  },
+  aiBadgeText: {
+    color: Colors.gold,
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  refreshBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 6,
+    borderRadius: BorderRadius.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.3)',
+    backgroundColor: 'rgba(212,175,55,0.08)',
+  },
+  refreshBtnLoading: {
+    opacity: 0.7,
+  },
+  refreshBtnText: {
+    color: Colors.gold,
+    fontSize: FontSizes.xs,
+    fontWeight: '700',
+  },
+  sentimentPlaceholder: {
+    alignItems: 'center',
+    paddingVertical: Spacing.xl,
+    gap: Spacing.md,
+  },
+  sentimentLoadingText: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.sm,
+    fontWeight: '500',
+  },
+  sentimentPlaceholderText: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.sm,
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  analyzeBtn: {
+    borderRadius: BorderRadius.md,
+    overflow: 'hidden',
+    marginTop: Spacing.sm,
+  },
+  analyzeBtnGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xl,
+  },
+  analyzeBtnText: {
+    color: Colors.black,
+    fontSize: FontSizes.md,
+    fontWeight: '700',
+  },
+  sentimentSummaryBox: {
+    marginTop: Spacing.lg,
+    padding: Spacing.md,
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    borderRadius: BorderRadius.sm,
+    borderLeftWidth: 2,
+    borderLeftColor: Colors.gold,
+  },
+  sentimentSummaryText: {
+    color: Colors.textSecondary,
+    fontSize: FontSizes.sm,
+    lineHeight: 20,
+  },
+  sentimentTime: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.xs,
+    marginTop: Spacing.sm,
+    textAlign: 'right',
+    fontStyle: 'italic',
   },
   featuredCard: {
     marginBottom: Spacing.xl,

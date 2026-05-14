@@ -16,9 +16,10 @@ interface MenuItemProps {
   onPress: () => void;
   badge?: string;
   highlight?: boolean;
+  badgeColor?: string;
 }
 
-function MenuItem({ icon, label, subtitle, onPress, badge, highlight }: MenuItemProps) {
+function MenuItem({ icon, label, subtitle, onPress, badge, highlight, badgeColor }: MenuItemProps) {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <GlassmorphicCard highlight={highlight} style={styles.menuItem}>
@@ -30,7 +31,7 @@ function MenuItem({ icon, label, subtitle, onPress, badge, highlight }: MenuItem
             <View style={styles.menuLabelRow}>
               <Text style={[styles.menuLabel, highlight && styles.menuLabelHighlight]}>{label}</Text>
               {badge && (
-                <View style={styles.badge}>
+                <View style={[styles.badge, badgeColor ? { backgroundColor: badgeColor } : null]}>
                   <Text style={styles.badgeText}>{badge}</Text>
                 </View>
               )}
@@ -67,7 +68,34 @@ export default function MoreScreen() {
         {/* Top Ad */}
         <AdBanner placement="top" />
 
-        {/* Menu Items */}
+        {/* Fintech Features */}
+        <View style={styles.sectionHeader}>
+          <Ionicons name="ellipse" size={8} color={Colors.gold} />
+          <Text style={styles.sectionTitle}>FINTECH TOOLS</Text>
+          <View style={styles.sectionLine} />
+        </View>
+
+        <MenuItem
+          icon="shield-checkmark-outline"
+          label="Digital Gold Vault"
+          subtitle="Track virtual gold holdings"
+          onPress={() => router.push('/digital-vault')}
+          badge="NEW"
+          highlight
+          badgeColor="rgba(212,175,55,0.8)"
+        />
+
+        <MenuItem
+          icon="sparkles-outline"
+          label="Pro Insights"
+          subtitle="24h AI price predictions & analysis"
+          onPress={() => router.push('/pro-insights')}
+          badge="AI"
+          highlight
+          badgeColor="rgba(108,99,255,0.8)"
+        />
+
+        {/* Features */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
           <Text style={styles.sectionTitle}>FEATURES</Text>
@@ -89,12 +117,11 @@ export default function MoreScreen() {
         />
 
         <MenuItem
-          icon="sparkles-outline"
+          icon="analytics-outline"
           label="AI Market Insights"
-          subtitle="AI-powered predictions & analysis"
+          subtitle="AI-powered market analysis"
           onPress={() => router.push('/ai-insights')}
           badge="FREE"
-          highlight
         />
 
         <MenuItem
@@ -103,7 +130,6 @@ export default function MoreScreen() {
           subtitle="Download price data for free"
           onPress={() => router.push('/history')}
           badge="FREE"
-          highlight
         />
 
         <View style={styles.sectionHeader}>
@@ -138,6 +164,7 @@ export default function MoreScreen() {
 
         {/* Footer */}
         <View style={styles.footer}>
+          <View style={styles.footerGoldLine} />
           <Text style={styles.footerText}>GoldSphere Global Pro v{CONFIG.APP_VERSION}</Text>
           <Text style={styles.footerSubText}>Free Market Data for Everyone</Text>
         </View>
@@ -249,6 +276,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: Spacing.xxxl,
     paddingBottom: Spacing.lg,
+    gap: Spacing.sm,
+  },
+  footerGoldLine: {
+    width: 60,
+    height: 1,
+    backgroundColor: 'rgba(212,175,55,0.3)',
+    marginBottom: Spacing.sm,
   },
   footerText: {
     color: Colors.textMuted,
@@ -258,7 +292,6 @@ const styles = StyleSheet.create({
   footerSubText: {
     color: Colors.textMuted,
     fontSize: FontSizes.xs,
-    marginTop: 4,
     letterSpacing: 2,
   },
 });
