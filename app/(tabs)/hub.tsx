@@ -15,6 +15,7 @@ import { router } from 'expo-router';
 import { useTextGeneration } from '@fastshot/ai';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import PremiumReferralSlot from '@/components/PremiumReferralSlot';
+import MultiplexRevenueUnit from '@/components/MultiplexRevenueUnit';
 import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
 import { useLivePrices } from '@/hooks/useLivePrices';
@@ -464,6 +465,17 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
             </TouchableOpacity>
           );
         })}
+
+        {/* Multiplex Revenue Unit - Grid-style recommendations */}
+        <MultiplexRevenueUnit
+          articles={filteredArticles.slice(0, 4).map((a) => ({
+            id: a.id,
+            title: a.title,
+            category: a.category,
+            readTime: a.readTime,
+          }))}
+          onArticlePress={(id) => router.push(`/article/${id}`)}
+        />
 
         {/* Premium Referral */}
         <PremiumReferralSlot placement="mid" />

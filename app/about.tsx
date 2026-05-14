@@ -115,6 +115,32 @@ export default function AboutScreen() {
           </Text>
         </GlassmorphicCard>
 
+        {/* Our Team */}
+        <View style={styles.sectionHeader}>
+          <Ionicons name="ellipse" size={8} color={Colors.gold} />
+          <Text style={styles.sectionTitle}>OUR TEAM</Text>
+          <View style={styles.sectionLine} />
+        </View>
+
+        <GlassmorphicCard highlight style={styles.missionCard}>
+          <Text style={styles.missionText}>
+            GoldSphere Global Pro is developed and maintained by a team of financial technology professionals with decades of combined experience in precious metals markets, quantitative finance, and enterprise software development. Our advisory board includes former commodity trading desk leaders, certified financial planners, and data science experts specializing in market intelligence systems. We maintain partnerships with leading market data providers to ensure accuracy and timeliness of all price information. Our commitment to transparency, user privacy, and data accuracy underpins everything we build.
+          </Text>
+        </GlassmorphicCard>
+
+        {/* Advertising Partnerships */}
+        <View style={styles.sectionHeader}>
+          <Ionicons name="ellipse" size={8} color={Colors.gold} />
+          <Text style={styles.sectionTitle}>ADVERTISING PARTNERSHIPS</Text>
+          <View style={styles.sectionLine} />
+        </View>
+
+        <GlassmorphicCard highlight style={styles.missionCard}>
+          <Text style={styles.missionText}>
+            GoldSphere Global Pro partners with premium advertising networks to deliver relevant, high-quality advertisements to our users. All advertising content is clearly labeled and maintains strict separation from editorial and market data content. Our advertising partnerships enable us to provide all features completely free of charge. We maintain rigorous standards for ad quality and relevance, ensuring that sponsored content aligns with the interests of sophisticated investors and wealth management professionals.
+          </Text>
+        </GlassmorphicCard>
+
         {/* Disclaimer */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />

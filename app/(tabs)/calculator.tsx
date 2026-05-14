@@ -17,6 +17,7 @@ import GlassmorphicCard from '@/components/GlassmorphicCard';
 import PremiumReferralSlot from '@/components/PremiumReferralSlot';
 import { CTAShimmerOverlay } from '@/components/GoldShimmer';
 import LockInCountdown from '@/components/LockInCountdown';
+import ContextualAdInjection from '@/components/ContextualAdInjection';
 import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { goldPrices, currencyRates, currencySymbols } from '@/constants/goldData';
 import { useLocalization } from '@/hooks/useLocalization';
@@ -413,6 +414,12 @@ export default function LiquidityPortalScreen() {
             </View>
           </View>
         )}
+
+        {/* Contextual Ad Injection - high-ticket referrals near Liquidity Portal */}
+        <ContextualAdInjection
+          calculatedValue={results?.[0]?.value || 0}
+          isVisible={!!results && (results[0]?.value || 0) >= 25000}
+        />
 
         {/* Premium Referral - contextual based on value */}
         <PremiumReferralSlot placement="mid" calculatedValue={results?.[0]?.value} />

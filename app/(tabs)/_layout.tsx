@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { PersistentBottomAnchorAd } from '@/components/AdBanner';
 import { Colors } from '@/constants/theme';
 
 function TabBarBackground() {
@@ -23,6 +24,7 @@ export default function TabsLayout() {
   const insets = useSafeAreaInsets();
 
   return (
+    <View style={{ flex: 1 }}>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -91,6 +93,11 @@ export default function TabsLayout() {
         }}
       />
     </Tabs>
+    {/* Persistent Bottom Anchor Ad - positioned above the tab bar */}
+    <View style={[styles.anchorAdContainer, { bottom: 70 + insets.bottom }]}>
+      <PersistentBottomAnchorAd />
+    </View>
+    </View>
   );
 }
 
@@ -102,5 +109,13 @@ const styles = StyleSheet.create({
     right: 0,
     height: 1,
     backgroundColor: 'rgba(138, 138, 154, 0.2)',
+  },
+  anchorAdContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    pointerEvents: 'box-none',
   },
 });

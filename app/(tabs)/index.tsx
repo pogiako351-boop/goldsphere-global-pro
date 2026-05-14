@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   RefreshControl,
   Animated,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,6 +20,7 @@ import PremiumReferralSlot from '@/components/PremiumReferralSlot';
 import GoldShimmer, { CTAShimmerOverlay } from '@/components/GoldShimmer';
 import VolatilityBanner from '@/components/VolatilityBanner';
 import HotMarketOverlay from '@/components/HotMarketOverlay';
+import { StickyHeaderAd } from '@/components/AdBanner';
 import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { useLivePrices } from '@/hooks/useLivePrices';
 import { useVolatilityAlerts } from '@/hooks/useVolatilityAlerts';
@@ -38,6 +41,7 @@ export default function DashboardScreen() {
   const { config } = useLocalization();
   const [hotMarketVisible, setHotMarketVisible] = useState(false);
   const [priceVelocity, setPriceVelocity] = useState(0);
+  const [isScrolledPast, setIsScrolledPast] = useState(false);
   const prevPriceRef = useRef(prices.goldPricePerGram);
 
   const onRefresh = useCallback(() => {
@@ -96,6 +100,13 @@ export default function DashboardScreen() {
     router.push(`/digital-vault?action=sell&karat=${karat.toLowerCase()}`);
   }, []);
 
+  // Track scroll position for Smart Sticky Header Ad behavior
+  const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    // Hide sticky header ad after 300px scroll (deep price analysis mode)
+    setIsScrolledPast(offsetY > 300);
+  }, []);
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -111,10 +122,15 @@ export default function DashboardScreen() {
         onDismiss={() => setHotMarketVisible(false)}
       />
 
+      {/* Smart Sticky Header Ad - tucks away during deep analysis */}
+      <StickyHeaderAd isScrolledPast={isScrolledPast} />
+
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + 16 }]}
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + 80 }]}
         showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

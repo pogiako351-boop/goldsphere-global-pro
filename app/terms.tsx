@@ -69,7 +69,7 @@ export default function TermsOfServiceScreen() {
 
           <Text style={styles.heading}>{'6. Advertisements'}</Text>
           <Text style={styles.paragraph}>
-            {'The Service displays advertisements provided by Google AdSense and potentially other advertising networks. By using the Service, you acknowledge that advertisements are part of the experience and agree not to use ad-blocking software that may interfere with the proper display of ads. The presence of advertisements does not imply endorsement of the advertised products or services.'}
+            {'The Service displays advertisements provided by Google AdSense and other premium advertising networks. These advertisements are an integral part of the Service and fund the free provision of all features. By using the Service, you acknowledge and agree that: advertisements are part of the core experience and support the free availability of all features; you will not use ad-blocking software, browser extensions, or any other tools that interfere with the proper display and function of advertisements; clicking on advertisements is entirely voluntary, and the 24-pixel buffer zone between ads and interactive elements is designed to prevent accidental interactions; the presence of advertisements does not constitute endorsement of advertised products or services; sponsored content is clearly labeled and separated from editorial content; and advertising data collection is governed by our Privacy Policy. Interference with advertisement display may result in restricted access to the Service.'}
           </Text>
 
           <Text style={styles.heading}>{'7. Intellectual Property'}</Text>

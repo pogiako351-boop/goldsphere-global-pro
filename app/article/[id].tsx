@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTextGeneration } from '@fastshot/ai';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
+import MultiplexRevenueUnit from '@/components/MultiplexRevenueUnit';
 import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
 import { useLivePrices } from '@/hooks/useLivePrices';
@@ -246,6 +247,20 @@ Provide a "Pro Insight" prediction for the 24-hour gold outlook based on the the
               </TouchableOpacity>
             ))}
         </View>
+
+        {/* Multiplex Revenue Unit - sponsored + internal recommendations grid */}
+        <MultiplexRevenueUnit
+          articles={articles
+            .filter((a) => a.id !== article.id)
+            .slice(0, 4)
+            .map((a) => ({
+              id: a.id,
+              title: a.title,
+              category: a.category,
+              readTime: a.readTime,
+            }))}
+          onArticlePress={(articleId) => router.push(`/article/${articleId}`)}
+        />
       </ScrollView>
     </View>
   );

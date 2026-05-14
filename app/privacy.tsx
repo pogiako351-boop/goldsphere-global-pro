@@ -76,6 +76,21 @@ export default function PrivacyPolicyScreen() {
           <Text style={styles.bullet}>{'- Google AdSense: For displaying advertisements. Google\'s privacy policy applies to data collected through ads.'}</Text>
           <Text style={styles.bullet}>{'- Gold Price APIs: We fetch live market data from third-party APIs. No personal information is shared with these services.'}</Text>
 
+          <Text style={styles.heading}>{'Personalized Advertising'}</Text>
+          <Text style={styles.paragraph}>
+            {'We partner with premium advertising networks, including Google AdSense, to deliver personalized advertisements tailored to your interests. These networks may collect and use data including: device identifiers and technical information, browsing patterns and interaction data within the Service, approximate geographic location based on IP address, and content preferences inferred from your usage patterns. This data enables the delivery of relevant, high-quality advertisements that align with your financial interests. You may opt out of personalized advertising through your device settings or by visiting the Digital Advertising Alliance\'s opt-out page.'}
+          </Text>
+
+          <Text style={styles.heading}>{'Data Retention for Advertising'}</Text>
+          <Text style={styles.paragraph}>
+            {'Advertising-related data is retained for up to 13 months in accordance with industry standards. Anonymized aggregate data may be retained indefinitely for analytics purposes. You may request deletion of your advertising profile by contacting us.'}
+          </Text>
+
+          <Text style={styles.heading}>{'Your Advertising Choices'}</Text>
+          <Text style={styles.paragraph}>
+            {'You have control over personalized advertising: adjust ad personalization in your device settings, opt out via Google Ad Settings (adssettings.google.com), use the DAA opt-out tool (optout.aboutads.info), or contact us to request removal from advertising profiles. Note that opting out of personalized ads does not reduce the number of ads you see; it only means ads may be less relevant to your interests.'}
+          </Text>
+
           <Text style={styles.heading}>{'Data Security'}</Text>
           <Text style={styles.paragraph}>
             {'Since GoldSphere Global Pro stores data locally on your device, your data security is primarily dependent on your device\'s security measures. We do not transmit or store personal data on external servers. We recommend keeping your browser and device updated for optimal security.'}
