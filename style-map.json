@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": 1778800294750,
+  "generatedAt": 1778800726218,
   "entries": {
     "PriceCard@components/PriceCard.tsx:30": {
       "element": {
@@ -12539,2050 +12539,6 @@
               "col": 19,
               "endCol": 20,
               "raw": "4"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:153": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 153
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.container",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 427,
-          "properties": {
-            "flex": {
-              "line": 428,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:154": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 154
-      },
-      "styles": [
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:158": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 158
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.scrollView",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 431,
-          "properties": {
-            "flex": {
-              "line": 432,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:165": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 165
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.header",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 441,
-          "properties": {
-            "flexDirection": {
-              "line": 442,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 443,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:166": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 166
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.headerIconWrap",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 447,
-          "properties": {
-            "width": {
-              "line": 448,
-              "col": 11,
-              "endCol": 13,
-              "raw": "40"
-            },
-            "height": {
-              "line": 449,
-              "col": 12,
-              "endCol": 14,
-              "raw": "40"
-            },
-            "borderRadius": {
-              "line": 450,
-              "col": 18,
-              "endCol": 20,
-              "raw": "20"
-            },
-            "backgroundColor": {
-              "line": 451,
-              "col": 21,
-              "endCol": 43,
-              "raw": "'rgba(212,175,55,0.1)'"
-            },
-            "borderWidth": {
-              "line": 452,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            },
-            "borderColor": {
-              "line": 453,
-              "col": 17,
-              "endCol": 39,
-              "raw": "'rgba(212,175,55,0.2)'"
-            },
-            "alignItems": {
-              "line": 454,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 455,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:170": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 170
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.headerTitle",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 457,
-          "properties": {
-            "fontWeight": {
-              "line": 459,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'200'"
-            },
-            "letterSpacing": {
-              "line": 461,
-              "col": 19,
-              "endCol": 20,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:171": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 171
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.headerSubtitle",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 463,
-          "properties": {
-            "fontWeight": {
-              "line": 465,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 467,
-              "col": 19,
-              "endCol": 20,
-              "raw": "2"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:173": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 173
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.headerRight",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 469,
-          "properties": {
-            "marginLeft": {
-              "line": 470,
-              "col": 16,
-              "endCol": 22,
-              "raw": "'auto'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:174": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 174
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.localeTag",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 472,
-          "properties": {
-            "flexDirection": {
-              "line": 473,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 474,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "gap": {
-              "line": 475,
-              "col": 9,
-              "endCol": 10,
-              "raw": "4"
-            },
-            "paddingVertical": {
-              "line": 477,
-              "col": 21,
-              "endCol": 22,
-              "raw": "4"
-            },
-            "backgroundColor": {
-              "line": 479,
-              "col": 21,
-              "endCol": 45,
-              "raw": "'rgba(138,138,154,0.08)'"
-            },
-            "borderWidth": {
-              "line": 480,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:176": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 176
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.localeTagText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 483,
-          "properties": {
-            "fontWeight": {
-              "line": 486,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "textTransform": {
-              "line": 487,
-              "col": 19,
-              "endCol": 30,
-              "raw": "'uppercase'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:182": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 182
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.livePriceCard",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 489,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:183": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 183
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.livePriceRow",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 492,
-          "properties": {
-            "flexDirection": {
-              "line": 493,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 494,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:184": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 184
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.liveIndicator",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 497,
-          "properties": {
-            "width": {
-              "line": 498,
-              "col": 11,
-              "endCol": 12,
-              "raw": "6"
-            },
-            "height": {
-              "line": 499,
-              "col": 12,
-              "endCol": 13,
-              "raw": "6"
-            },
-            "borderRadius": {
-              "line": 500,
-              "col": 18,
-              "endCol": 19,
-              "raw": "3"
-            },
-            "backgroundColor": {
-              "line": 501,
-              "col": 21,
-              "endCol": 30,
-              "raw": "'#FFA500'"
-            }
-          }
-        },
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:185": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 185
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.livePriceLabel",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 506,
-          "properties": {
-            "fontWeight": {
-              "line": 509,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'500'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:186": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 186
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.livePriceValue",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 511,
-          "properties": {
-            "fontWeight": {
-              "line": 513,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:188": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 188
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.flex",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 438,
-          "properties": {
-            "flex": {
-              "line": 439,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:189": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 189
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.livePriceHint",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 515,
-          "properties": {
-            "fontWeight": {
-              "line": 517,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'600'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:197": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 197
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.cashOutCard",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 519,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:198": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 198
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.cashOutHeader",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 522,
-          "properties": {
-            "flexDirection": {
-              "line": 523,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 524,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "gap": {
-              "line": 525,
-              "col": 9,
-              "endCol": 10,
-              "raw": "6"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:200": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 200
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.cashOutLabel",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 528,
-          "properties": {
-            "fontWeight": {
-              "line": 531,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'800'"
-            },
-            "letterSpacing": {
-              "line": 532,
-              "col": 19,
-              "endCol": 22,
-              "raw": "1.5"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:202": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 202
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.cashOutValue",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 534,
-          "properties": {
-            "fontWeight": {
-              "line": 537,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 538,
-              "col": 19,
-              "endCol": 22,
-              "raw": "0.5"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:205": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 205
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.cashOutSubtext",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 540,
-          "properties": {
-            "marginTop": {
-              "line": 543,
-              "col": 15,
-              "endCol": 16,
-              "raw": "4"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:217": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 217
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.inputCard",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 545,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:218": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 218
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.inputLabel",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 548,
-          "properties": {
-            "fontWeight": {
-              "line": 551,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 552,
-              "col": 19,
-              "endCol": 20,
-              "raw": "2"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:219": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 219
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.inputRow",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 555,
-          "properties": {
-            "flexDirection": {
-              "line": 556,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 557,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:220": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 220
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.textInput",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 559,
-          "properties": {
-            "flex": {
-              "line": 560,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "fontSize": {
-              "line": 561,
-              "col": 14,
-              "endCol": 16,
-              "raw": "42"
-            },
-            "fontWeight": {
-              "line": 562,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'200'"
-            },
-            "padding": {
-              "line": 564,
-              "col": 13,
-              "endCol": 14,
-              "raw": "0"
-            },
-            "letterSpacing": {
-              "line": 565,
-              "col": 19,
-              "endCol": 20,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:233": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 233
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.inputUnit",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 567,
-          "properties": {
-            "fontWeight": {
-              "line": 570,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'300'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:236": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 236
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.gramEquivalent",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 572,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:240": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 240
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.errorText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 577,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:244": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 244
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.puritySection",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 582,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:245": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 245
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityLabel",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 585,
-          "properties": {
-            "fontWeight": {
-              "line": 588,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 589,
-              "col": 19,
-              "endCol": 20,
-              "raw": "2"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:246": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 246
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityGrid",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 592,
-          "properties": {
-            "flexDirection": {
-              "line": 593,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:252": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 252
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityCard",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 596,
-          "properties": {
-            "flex": {
-              "line": 597,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "borderWidth": {
-              "line": 599,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            },
-            "overflow": {
-              "line": 601,
-              "col": 14,
-              "endCol": 22,
-              "raw": "'hidden'"
-            }
-          }
-        },
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        },
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:262": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 262
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityGradient",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 609,
-          "properties": {
-            "alignItems": {
-              "line": 611,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "gap": {
-              "line": 612,
-              "col": 9,
-              "endCol": 10,
-              "raw": "4"
-            },
-            "position": {
-              "line": 613,
-              "col": 14,
-              "endCol": 24,
-              "raw": "'relative'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:271": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 271
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.preferredTag",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 615,
-          "properties": {
-            "position": {
-              "line": 616,
-              "col": 14,
-              "endCol": 24,
-              "raw": "'absolute'"
-            },
-            "top": {
-              "line": 617,
-              "col": 9,
-              "endCol": 10,
-              "raw": "4"
-            },
-            "right": {
-              "line": 618,
-              "col": 11,
-              "endCol": 12,
-              "raw": "4"
-            },
-            "backgroundColor": {
-              "line": 619,
-              "col": 21,
-              "endCol": 44,
-              "raw": "'rgba(212,175,55,0.15)'"
-            },
-            "paddingHorizontal": {
-              "line": 620,
-              "col": 23,
-              "endCol": 24,
-              "raw": "4"
-            },
-            "paddingVertical": {
-              "line": 621,
-              "col": 21,
-              "endCol": 22,
-              "raw": "1"
-            },
-            "borderRadius": {
-              "line": 622,
-              "col": 18,
-              "endCol": 19,
-              "raw": "3"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:272": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 272
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.preferredTagText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 624,
-          "properties": {
-            "fontSize": {
-              "line": 626,
-              "col": 14,
-              "endCol": 15,
-              "raw": "8"
-            },
-            "fontWeight": {
-              "line": 627,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'800'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:275": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 275
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityKarat",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 629,
-          "properties": {
-            "fontWeight": {
-              "line": 631,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            }
-          }
-        },
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:278": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 278
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.purityPrice",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 637,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:289": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 289
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.buttonRow",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 641,
-          "properties": {
-            "flexDirection": {
-              "line": 642,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:290": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 290
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.clearBtn",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 646,
-          "properties": {
-            "flexDirection": {
-              "line": 647,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 648,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 649,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            },
-            "borderWidth": {
-              "line": 654,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            },
-            "backgroundColor": {
-              "line": 656,
-              "col": 21,
-              "endCol": 48,
-              "raw": "'rgba(138, 138, 154, 0.05)'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:292": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 292
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.clearBtnText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 658,
-          "properties": {
-            "fontWeight": {
-              "line": 661,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'600'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:294": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 294
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.calculateBtn",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 663,
-          "properties": {
-            "flex": {
-              "line": 664,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "overflow": {
-              "line": 666,
-              "col": 14,
-              "endCol": 22,
-              "raw": "'hidden'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:295": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 295
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.calculateGradient",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 668,
-          "properties": {
-            "flexDirection": {
-              "line": 669,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 670,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 671,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:302": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 302
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.calculateBtnText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 675,
-          "properties": {
-            "fontWeight": {
-              "line": 678,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 679,
-              "col": 19,
-              "endCol": 20,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:309": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 309
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultsSection",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 681,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:310": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 310
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultsDivider",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 684,
-          "properties": {
-            "flexDirection": {
-              "line": 685,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 686,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:311": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 311
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.dividerLine",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 690,
-          "properties": {
-            "flex": {
-              "line": 691,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "height": {
-              "line": 692,
-              "col": 12,
-              "endCol": 13,
-              "raw": "1"
-            },
-            "backgroundColor": {
-              "line": 693,
-              "col": 21,
-              "endCol": 47,
-              "raw": "'rgba(212, 175, 55, 0.15)'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:312": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 312
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.dividerText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 695,
-          "properties": {
-            "fontWeight": {
-              "line": 698,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 699,
-              "col": 19,
-              "endCol": 20,
-              "raw": "3"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:313": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 313
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.dividerLine",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 690,
-          "properties": {
-            "flex": {
-              "line": 691,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "height": {
-              "line": 692,
-              "col": 12,
-              "endCol": 13,
-              "raw": "1"
-            },
-            "backgroundColor": {
-              "line": 693,
-              "col": 21,
-              "endCol": 47,
-              "raw": "'rgba(212, 175, 55, 0.15)'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:316": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 316
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultsInfo",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 701,
-          "properties": {
-            "alignItems": {
-              "line": 702,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:317": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 317
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultsSubtext",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 705,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:323": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 323
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultCard",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 709,
-          "properties": {}
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:329": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 329
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultRow",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 712,
-          "properties": {
-            "flexDirection": {
-              "line": 713,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 714,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 715,
-              "col": 20,
-              "endCol": 35,
-              "raw": "'space-between'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:330": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 330
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultCurrency",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 717,
-          "properties": {
-            "flexDirection": {
-              "line": 718,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 719,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:331": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 331
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultFlag",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 722,
-          "properties": {
-            "fontSize": {
-              "line": 723,
-              "col": 14,
-              "endCol": 16,
-              "raw": "24"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:334": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 334
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultCurrencyText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 725,
-          "properties": {
-            "fontWeight": {
-              "line": 728,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'600'"
-            },
-            "letterSpacing": {
-              "line": 729,
-              "col": 19,
-              "endCol": 20,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:336": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 336
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.localBadge",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 731,
-          "properties": {
-            "backgroundColor": {
-              "line": 732,
-              "col": 21,
-              "endCol": 44,
-              "raw": "'rgba(212,175,55,0.12)'"
-            },
-            "paddingHorizontal": {
-              "line": 733,
-              "col": 23,
-              "endCol": 24,
-              "raw": "5"
-            },
-            "paddingVertical": {
-              "line": 734,
-              "col": 21,
-              "endCol": 22,
-              "raw": "1"
-            },
-            "borderRadius": {
-              "line": 735,
-              "col": 18,
-              "endCol": 19,
-              "raw": "3"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:337": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 337
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.localBadgeText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 737,
-          "properties": {
-            "fontSize": {
-              "line": 739,
-              "col": 14,
-              "endCol": 15,
-              "raw": "8"
-            },
-            "fontWeight": {
-              "line": 740,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'800'"
-            },
-            "letterSpacing": {
-              "line": 741,
-              "col": 19,
-              "endCol": 22,
-              "raw": "0.5"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:341": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 341
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.resultValue",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 743,
-          "properties": {
-            "fontWeight": {
-              "line": 746,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            }
-          }
-        },
-        {
-          "origin": "dynamic",
-          "resolvable": false
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:360": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 360
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInBtn",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 751,
-          "properties": {
-            "borderWidth": {
-              "line": 753,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            },
-            "borderColor": {
-              "line": 754,
-              "col": 17,
-              "endCol": 40,
-              "raw": "'rgba(212,175,55,0.35)'"
-            },
-            "overflow": {
-              "line": 755,
-              "col": 14,
-              "endCol": 22,
-              "raw": "'hidden'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:365": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 365
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInGradient",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 759,
-          "properties": {
-            "flexDirection": {
-              "line": 760,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 761,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 762,
-              "col": 20,
-              "endCol": 35,
-              "raw": "'space-between'"
-            },
-            "position": {
-              "line": 764,
-              "col": 14,
-              "endCol": 24,
-              "raw": "'relative'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:371": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 371
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInLeft",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 766,
-          "properties": {
-            "flexDirection": {
-              "line": 767,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 768,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "flex": {
-              "line": 770,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:372": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 372
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInIcon",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 772,
-          "properties": {
-            "width": {
-              "line": 773,
-              "col": 11,
-              "endCol": 13,
-              "raw": "44"
-            },
-            "height": {
-              "line": 774,
-              "col": 12,
-              "endCol": 14,
-              "raw": "44"
-            },
-            "borderRadius": {
-              "line": 775,
-              "col": 18,
-              "endCol": 20,
-              "raw": "22"
-            },
-            "backgroundColor": {
-              "line": 776,
-              "col": 21,
-              "endCol": 44,
-              "raw": "'rgba(212,175,55,0.12)'"
-            },
-            "borderWidth": {
-              "line": 777,
-              "col": 17,
-              "endCol": 18,
-              "raw": "1"
-            },
-            "borderColor": {
-              "line": 778,
-              "col": 17,
-              "endCol": 40,
-              "raw": "'rgba(212,175,55,0.25)'"
-            },
-            "alignItems": {
-              "line": 779,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 780,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:375": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 375
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 782,
-          "properties": {
-            "flex": {
-              "line": 783,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:376": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 376
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInTitle",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 785,
-          "properties": {
-            "fontWeight": {
-              "line": 788,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 789,
-              "col": 19,
-              "endCol": 22,
-              "raw": "0.5"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:377": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 377
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInSubtitle",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 791,
-          "properties": {
-            "marginTop": {
-              "line": 794,
-              "col": 15,
-              "endCol": 16,
-              "raw": "2"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:391": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 391
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.vaultCtaBtn",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 796,
-          "properties": {
-            "overflow": {
-              "line": 798,
-              "col": 14,
-              "endCol": 22,
-              "raw": "'hidden'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:396": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 396
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.vaultCtaGradient",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 802,
-          "properties": {
-            "flexDirection": {
-              "line": 803,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 804,
-              "col": 16,
-              "endCol": 24,
-              "raw": "'center'"
-            },
-            "justifyContent": {
-              "line": 805,
-              "col": 20,
-              "endCol": 28,
-              "raw": "'center'"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:403": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 403
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.vaultCtaText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 809,
-          "properties": {
-            "fontWeight": {
-              "line": 812,
-              "col": 16,
-              "endCol": 21,
-              "raw": "'700'"
-            },
-            "letterSpacing": {
-              "line": 813,
-              "col": 19,
-              "endCol": 22,
-              "raw": "0.5"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:408": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 408
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInNote",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 815,
-          "properties": {
-            "flexDirection": {
-              "line": 816,
-              "col": 19,
-              "endCol": 24,
-              "raw": "'row'"
-            },
-            "alignItems": {
-              "line": 817,
-              "col": 16,
-              "endCol": 28,
-              "raw": "'flex-start'"
-            },
-            "gap": {
-              "line": 818,
-              "col": 9,
-              "endCol": 10,
-              "raw": "6"
-            },
-            "paddingHorizontal": {
-              "line": 819,
-              "col": 23,
-              "endCol": 24,
-              "raw": "4"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:410": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 410
-      },
-      "styles": [
-        {
-          "origin": "stylesheet",
-          "ref": "styles.lockInNoteText",
-          "file": "app/(tabs)/calculator.tsx",
-          "defLine": 823,
-          "properties": {
-            "flex": {
-              "line": 826,
-              "col": 10,
-              "endCol": 11,
-              "raw": "1"
-            },
-            "lineHeight": {
-              "line": 827,
-              "col": 16,
-              "endCol": 18,
-              "raw": "16"
-            }
-          }
-        }
-      ]
-    },
-    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:420": {
-      "element": {
-        "file": "app/(tabs)/calculator.tsx",
-        "line": 420
-      },
-      "styles": [
-        {
-          "origin": "inline",
-          "file": "app/(tabs)/calculator.tsx",
-          "properties": {
-            "height": {
-              "line": 420,
-              "col": 31,
-              "endCol": 33,
-              "raw": "30"
             }
           }
         }
@@ -27842,6 +25798,3090 @@
           "file": "components/ContextualAdInjection.tsx",
           "defLine": 232,
           "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:160": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 160
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.container",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 446,
+          "properties": {
+            "flex": {
+              "line": 447,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:161": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 161
+      },
+      "styles": [
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:165": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 165
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.scrollView",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 450,
+          "properties": {
+            "flex": {
+              "line": 451,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:172": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 172
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.header",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 460,
+          "properties": {
+            "flexDirection": {
+              "line": 461,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 462,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:173": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 173
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.headerIconWrap",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 466,
+          "properties": {
+            "width": {
+              "line": 467,
+              "col": 11,
+              "endCol": 13,
+              "raw": "40"
+            },
+            "height": {
+              "line": 468,
+              "col": 12,
+              "endCol": 14,
+              "raw": "40"
+            },
+            "borderRadius": {
+              "line": 469,
+              "col": 18,
+              "endCol": 20,
+              "raw": "20"
+            },
+            "backgroundColor": {
+              "line": 470,
+              "col": 21,
+              "endCol": 43,
+              "raw": "'rgba(212,175,55,0.1)'"
+            },
+            "borderWidth": {
+              "line": 471,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "borderColor": {
+              "line": 472,
+              "col": 17,
+              "endCol": 39,
+              "raw": "'rgba(212,175,55,0.2)'"
+            },
+            "alignItems": {
+              "line": 473,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 474,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:177": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 177
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.headerTitle",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 476,
+          "properties": {
+            "fontWeight": {
+              "line": 478,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'200'"
+            },
+            "letterSpacing": {
+              "line": 480,
+              "col": 19,
+              "endCol": 20,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:178": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 178
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.headerSubtitle",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 482,
+          "properties": {
+            "fontWeight": {
+              "line": 484,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 486,
+              "col": 19,
+              "endCol": 20,
+              "raw": "2"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:180": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 180
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.headerRight",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 488,
+          "properties": {
+            "marginLeft": {
+              "line": 489,
+              "col": 16,
+              "endCol": 22,
+              "raw": "'auto'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:181": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 181
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.localeTag",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 491,
+          "properties": {
+            "flexDirection": {
+              "line": 492,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 493,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 494,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            },
+            "paddingVertical": {
+              "line": 496,
+              "col": 21,
+              "endCol": 22,
+              "raw": "4"
+            },
+            "backgroundColor": {
+              "line": 498,
+              "col": 21,
+              "endCol": 45,
+              "raw": "'rgba(138,138,154,0.08)'"
+            },
+            "borderWidth": {
+              "line": 499,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:183": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 183
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.localeTagText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 502,
+          "properties": {
+            "fontWeight": {
+              "line": 505,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "textTransform": {
+              "line": 506,
+              "col": 19,
+              "endCol": 30,
+              "raw": "'uppercase'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:189": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 189
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.livePriceCard",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 508,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:190": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 190
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.livePriceRow",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 511,
+          "properties": {
+            "flexDirection": {
+              "line": 512,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 513,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:191": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 191
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.liveIndicator",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 516,
+          "properties": {
+            "width": {
+              "line": 517,
+              "col": 11,
+              "endCol": 12,
+              "raw": "6"
+            },
+            "height": {
+              "line": 518,
+              "col": 12,
+              "endCol": 13,
+              "raw": "6"
+            },
+            "borderRadius": {
+              "line": 519,
+              "col": 18,
+              "endCol": 19,
+              "raw": "3"
+            },
+            "backgroundColor": {
+              "line": 520,
+              "col": 21,
+              "endCol": 30,
+              "raw": "'#FFA500'"
+            }
+          }
+        },
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:192": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 192
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.livePriceLabel",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 525,
+          "properties": {
+            "fontWeight": {
+              "line": 528,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'500'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:193": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 193
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.livePriceValue",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 530,
+          "properties": {
+            "fontWeight": {
+              "line": 532,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:195": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 195
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.flex",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 457,
+          "properties": {
+            "flex": {
+              "line": 458,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:196": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 196
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.livePriceHint",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 534,
+          "properties": {
+            "fontWeight": {
+              "line": 536,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:204": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 204
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.cashOutCard",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 538,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:205": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 205
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.cashOutHeader",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 541,
+          "properties": {
+            "flexDirection": {
+              "line": 542,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 543,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 544,
+              "col": 9,
+              "endCol": 10,
+              "raw": "6"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:207": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 207
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.cashOutLabel",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 547,
+          "properties": {
+            "fontWeight": {
+              "line": 550,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'800'"
+            },
+            "letterSpacing": {
+              "line": 551,
+              "col": 19,
+              "endCol": 22,
+              "raw": "1.5"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:209": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 209
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.cashOutValue",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 553,
+          "properties": {
+            "fontWeight": {
+              "line": 556,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 557,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.5"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:212": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 212
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.cashOutSubtext",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 559,
+          "properties": {
+            "marginTop": {
+              "line": 562,
+              "col": 15,
+              "endCol": 16,
+              "raw": "4"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:224": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 224
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.inputCard",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 564,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:225": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 225
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.inputLabel",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 567,
+          "properties": {
+            "fontWeight": {
+              "line": 570,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 571,
+              "col": 19,
+              "endCol": 20,
+              "raw": "2"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:226": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 226
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.inputRow",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 574,
+          "properties": {
+            "flexDirection": {
+              "line": 575,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 576,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:227": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 227
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.textInput",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 578,
+          "properties": {
+            "flex": {
+              "line": 579,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "fontSize": {
+              "line": 580,
+              "col": 14,
+              "endCol": 16,
+              "raw": "42"
+            },
+            "fontWeight": {
+              "line": 581,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'200'"
+            },
+            "padding": {
+              "line": 583,
+              "col": 13,
+              "endCol": 14,
+              "raw": "0"
+            },
+            "letterSpacing": {
+              "line": 584,
+              "col": 19,
+              "endCol": 20,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:240": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 240
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.inputUnit",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 586,
+          "properties": {
+            "fontWeight": {
+              "line": 589,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'300'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:243": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 243
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.gramEquivalent",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 591,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:247": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 247
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.errorText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 596,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:251": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 251
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.puritySection",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 601,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:252": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 252
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityLabel",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 604,
+          "properties": {
+            "fontWeight": {
+              "line": 607,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 608,
+              "col": 19,
+              "endCol": 20,
+              "raw": "2"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:253": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 253
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityGrid",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 611,
+          "properties": {
+            "flexDirection": {
+              "line": 612,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:259": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 259
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityCard",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 615,
+          "properties": {
+            "flex": {
+              "line": 616,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "borderWidth": {
+              "line": 618,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "overflow": {
+              "line": 620,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            }
+          }
+        },
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        },
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:269": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 269
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityGradient",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 628,
+          "properties": {
+            "alignItems": {
+              "line": 630,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 631,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            },
+            "position": {
+              "line": 632,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'relative'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:278": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 278
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.preferredTag",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 634,
+          "properties": {
+            "position": {
+              "line": 635,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'absolute'"
+            },
+            "top": {
+              "line": 636,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            },
+            "right": {
+              "line": 637,
+              "col": 11,
+              "endCol": 12,
+              "raw": "4"
+            },
+            "backgroundColor": {
+              "line": 638,
+              "col": 21,
+              "endCol": 44,
+              "raw": "'rgba(212,175,55,0.15)'"
+            },
+            "paddingHorizontal": {
+              "line": 639,
+              "col": 23,
+              "endCol": 24,
+              "raw": "4"
+            },
+            "paddingVertical": {
+              "line": 640,
+              "col": 21,
+              "endCol": 22,
+              "raw": "1"
+            },
+            "borderRadius": {
+              "line": 641,
+              "col": 18,
+              "endCol": 19,
+              "raw": "3"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:279": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 279
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.preferredTagText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 643,
+          "properties": {
+            "fontSize": {
+              "line": 645,
+              "col": 14,
+              "endCol": 15,
+              "raw": "8"
+            },
+            "fontWeight": {
+              "line": 646,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'800'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:282": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 282
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityKarat",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 648,
+          "properties": {
+            "fontWeight": {
+              "line": 650,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            }
+          }
+        },
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:285": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 285
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.purityPrice",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 656,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:296": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 296
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.buttonRow",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 660,
+          "properties": {
+            "flexDirection": {
+              "line": 661,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:297": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 297
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.clearBtn",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 665,
+          "properties": {
+            "flexDirection": {
+              "line": 666,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 667,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 668,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            },
+            "borderWidth": {
+              "line": 673,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "backgroundColor": {
+              "line": 675,
+              "col": 21,
+              "endCol": 48,
+              "raw": "'rgba(138, 138, 154, 0.05)'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:299": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 299
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.clearBtnText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 677,
+          "properties": {
+            "fontWeight": {
+              "line": 680,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:301": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 301
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.calculateBtn",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 682,
+          "properties": {
+            "flex": {
+              "line": 683,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "overflow": {
+              "line": 685,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:302": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 302
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.calculateGradient",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 687,
+          "properties": {
+            "flexDirection": {
+              "line": 688,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 689,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 690,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:309": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 309
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.calculateBtnText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 694,
+          "properties": {
+            "fontWeight": {
+              "line": 697,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 698,
+              "col": 19,
+              "endCol": 20,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:316": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 316
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultsSection",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 700,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:317": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 317
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultsDivider",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 703,
+          "properties": {
+            "flexDirection": {
+              "line": 704,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 705,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:318": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 318
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dividerLine",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 709,
+          "properties": {
+            "flex": {
+              "line": 710,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "height": {
+              "line": 711,
+              "col": 12,
+              "endCol": 13,
+              "raw": "1"
+            },
+            "backgroundColor": {
+              "line": 712,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(212, 175, 55, 0.15)'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:319": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 319
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dividerText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 714,
+          "properties": {
+            "fontWeight": {
+              "line": 717,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 718,
+              "col": 19,
+              "endCol": 20,
+              "raw": "3"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:320": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 320
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dividerLine",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 709,
+          "properties": {
+            "flex": {
+              "line": 710,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "height": {
+              "line": 711,
+              "col": 12,
+              "endCol": 13,
+              "raw": "1"
+            },
+            "backgroundColor": {
+              "line": 712,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(212, 175, 55, 0.15)'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:323": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 323
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultsInfo",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 720,
+          "properties": {
+            "alignItems": {
+              "line": 721,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:324": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 324
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultsSubtext",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 724,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:330": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 330
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultCard",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 728,
+          "properties": {}
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:336": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 336
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultRow",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 731,
+          "properties": {
+            "flexDirection": {
+              "line": 732,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 733,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 734,
+              "col": 20,
+              "endCol": 35,
+              "raw": "'space-between'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:337": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 337
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultCurrency",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 736,
+          "properties": {
+            "flexDirection": {
+              "line": 737,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 738,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:338": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 338
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultFlag",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 741,
+          "properties": {
+            "fontSize": {
+              "line": 742,
+              "col": 14,
+              "endCol": 16,
+              "raw": "24"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:341": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 341
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultCurrencyText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 744,
+          "properties": {
+            "fontWeight": {
+              "line": 747,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            },
+            "letterSpacing": {
+              "line": 748,
+              "col": 19,
+              "endCol": 20,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:343": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 343
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.localBadge",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 750,
+          "properties": {
+            "backgroundColor": {
+              "line": 751,
+              "col": 21,
+              "endCol": 44,
+              "raw": "'rgba(212,175,55,0.12)'"
+            },
+            "paddingHorizontal": {
+              "line": 752,
+              "col": 23,
+              "endCol": 24,
+              "raw": "5"
+            },
+            "paddingVertical": {
+              "line": 753,
+              "col": 21,
+              "endCol": 22,
+              "raw": "1"
+            },
+            "borderRadius": {
+              "line": 754,
+              "col": 18,
+              "endCol": 19,
+              "raw": "3"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:344": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 344
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.localBadgeText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 756,
+          "properties": {
+            "fontSize": {
+              "line": 758,
+              "col": 14,
+              "endCol": 15,
+              "raw": "8"
+            },
+            "fontWeight": {
+              "line": 759,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'800'"
+            },
+            "letterSpacing": {
+              "line": 760,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.5"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:348": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 348
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.resultValue",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 762,
+          "properties": {
+            "fontWeight": {
+              "line": 765,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            }
+          }
+        },
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:367": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 367
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInBtn",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 770,
+          "properties": {
+            "borderWidth": {
+              "line": 772,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "borderColor": {
+              "line": 773,
+              "col": 17,
+              "endCol": 40,
+              "raw": "'rgba(212,175,55,0.35)'"
+            },
+            "overflow": {
+              "line": 774,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:372": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 372
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInGradient",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 778,
+          "properties": {
+            "flexDirection": {
+              "line": 779,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 780,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 781,
+              "col": 20,
+              "endCol": 35,
+              "raw": "'space-between'"
+            },
+            "position": {
+              "line": 783,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'relative'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:378": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 378
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInLeft",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 785,
+          "properties": {
+            "flexDirection": {
+              "line": 786,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 787,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "flex": {
+              "line": 789,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:379": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 379
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInIcon",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 791,
+          "properties": {
+            "width": {
+              "line": 792,
+              "col": 11,
+              "endCol": 13,
+              "raw": "44"
+            },
+            "height": {
+              "line": 793,
+              "col": 12,
+              "endCol": 14,
+              "raw": "44"
+            },
+            "borderRadius": {
+              "line": 794,
+              "col": 18,
+              "endCol": 20,
+              "raw": "22"
+            },
+            "backgroundColor": {
+              "line": 795,
+              "col": 21,
+              "endCol": 44,
+              "raw": "'rgba(212,175,55,0.12)'"
+            },
+            "borderWidth": {
+              "line": 796,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "borderColor": {
+              "line": 797,
+              "col": 17,
+              "endCol": 40,
+              "raw": "'rgba(212,175,55,0.25)'"
+            },
+            "alignItems": {
+              "line": 798,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 799,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:382": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 382
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 801,
+          "properties": {
+            "flex": {
+              "line": 802,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:383": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 383
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInTitle",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 804,
+          "properties": {
+            "fontWeight": {
+              "line": 807,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 808,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.5"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:384": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 384
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInSubtitle",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 810,
+          "properties": {
+            "marginTop": {
+              "line": 813,
+              "col": 15,
+              "endCol": 16,
+              "raw": "2"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:398": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 398
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.vaultCtaBtn",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 815,
+          "properties": {
+            "overflow": {
+              "line": 817,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:403": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 403
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.vaultCtaGradient",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 821,
+          "properties": {
+            "flexDirection": {
+              "line": 822,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 823,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 824,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:410": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 410
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.vaultCtaText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 828,
+          "properties": {
+            "fontWeight": {
+              "line": 831,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "letterSpacing": {
+              "line": 832,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.5"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:415": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 415
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInNote",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 834,
+          "properties": {
+            "flexDirection": {
+              "line": 835,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 836,
+              "col": 16,
+              "endCol": 28,
+              "raw": "'flex-start'"
+            },
+            "gap": {
+              "line": 837,
+              "col": 9,
+              "endCol": 10,
+              "raw": "6"
+            },
+            "paddingHorizontal": {
+              "line": 838,
+              "col": 23,
+              "endCol": 24,
+              "raw": "4"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:417": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 417
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.lockInNoteText",
+          "file": "app/(tabs)/calculator.tsx",
+          "defLine": 842,
+          "properties": {
+            "flex": {
+              "line": 845,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            },
+            "lineHeight": {
+              "line": 846,
+              "col": 16,
+              "endCol": 18,
+              "raw": "16"
+            }
+          }
+        }
+      ]
+    },
+    "LiquidityPortalScreen@app/(tabs)/calculator.tsx:433": {
+      "element": {
+        "file": "app/(tabs)/calculator.tsx",
+        "line": 433
+      },
+      "styles": [
+        {
+          "origin": "inline",
+          "file": "app/(tabs)/calculator.tsx",
+          "properties": {
+            "height": {
+              "line": 433,
+              "col": 31,
+              "endCol": 33,
+              "raw": "30"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:51": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 51
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.container",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 92,
+          "properties": {
+            "zIndex": {
+              "line": 94,
+              "col": 12,
+              "endCol": 17,
+              "raw": "99999"
+            },
+            "alignItems": {
+              "line": 95,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 96,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:52": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 52
+      },
+      "styles": [
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:58": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 58
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.glowOuter",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 99,
+          "properties": {
+            "position": {
+              "line": 100,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'absolute'"
+            },
+            "width": {
+              "line": 101,
+              "col": 11,
+              "endCol": 14,
+              "raw": "300"
+            },
+            "height": {
+              "line": 102,
+              "col": 12,
+              "endCol": 15,
+              "raw": "300"
+            },
+            "borderRadius": {
+              "line": 103,
+              "col": 18,
+              "endCol": 21,
+              "raw": "150"
+            },
+            "backgroundColor": {
+              "line": 104,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(212, 175, 55, 0.03)'"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:59": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 59
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.glowInner",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 106,
+          "properties": {
+            "position": {
+              "line": 107,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'absolute'"
+            },
+            "width": {
+              "line": 108,
+              "col": 11,
+              "endCol": 14,
+              "raw": "180"
+            },
+            "height": {
+              "line": 109,
+              "col": 12,
+              "endCol": 15,
+              "raw": "180"
+            },
+            "borderRadius": {
+              "line": 110,
+              "col": 18,
+              "endCol": 20,
+              "raw": "90"
+            },
+            "backgroundColor": {
+              "line": 111,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(212, 175, 55, 0.05)'"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:62": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 62
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.logoContainer",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 113,
+          "properties": {
+            "width": {
+              "line": 114,
+              "col": 11,
+              "endCol": 14,
+              "raw": "120"
+            },
+            "height": {
+              "line": 115,
+              "col": 12,
+              "endCol": 15,
+              "raw": "120"
+            },
+            "alignItems": {
+              "line": 116,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 117,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:71": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 71
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.logo",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 119,
+          "properties": {
+            "width": {
+              "line": 120,
+              "col": 11,
+              "endCol": 14,
+              "raw": "120"
+            },
+            "height": {
+              "line": 121,
+              "col": 12,
+              "endCol": 15,
+              "raw": "120"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:79": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 79
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.accentLine",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 123,
+          "properties": {
+            "position": {
+              "line": 124,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'absolute'"
+            },
+            "bottom": {
+              "line": 125,
+              "col": 12,
+              "endCol": 17,
+              "raw": "'30%'"
+            },
+            "width": {
+              "line": 126,
+              "col": 11,
+              "endCol": 16,
+              "raw": "'60%'"
+            },
+            "height": {
+              "line": 127,
+              "col": 12,
+              "endCol": 13,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "PWASplashScreen@components/PWASplashScreen.tsx:80": {
+      "element": {
+        "file": "components/PWASplashScreen.tsx",
+        "line": 80
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.accentGradient",
+          "file": "components/PWASplashScreen.tsx",
+          "defLine": 129,
+          "properties": {
+            "flex": {
+              "line": 130,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:97": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 97
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.overlay",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 197,
+          "properties": {
+            "zIndex": {
+              "line": 199,
+              "col": 12,
+              "endCol": 16,
+              "raw": "9999"
+            },
+            "justifyContent": {
+              "line": 200,
+              "col": 20,
+              "endCol": 30,
+              "raw": "'flex-end'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:103": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 103
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.backdrop",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 202,
+          "properties": {
+            "backgroundColor": {
+              "line": 204,
+              "col": 21,
+              "endCol": 41,
+              "raw": "'rgba(0, 0, 0, 0.6)'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:108": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 108
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.panel",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 206,
+          "properties": {
+            "width": {
+              "line": 207,
+              "col": 11,
+              "endCol": 17,
+              "raw": "'100%'"
+            },
+            "maxWidth": {
+              "line": 208,
+              "col": 14,
+              "endCol": 17,
+              "raw": "480"
+            },
+            "alignSelf": {
+              "line": 209,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:115": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 115
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.glassContainer",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 211,
+          "properties": {
+            "overflow": {
+              "line": 214,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            },
+            "borderWidth": {
+              "line": 215,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "borderBottomWidth": {
+              "line": 216,
+              "col": 23,
+              "endCol": 24,
+              "raw": "0"
+            },
+            "borderColor": {
+              "line": 217,
+              "col": 17,
+              "endCol": 42,
+              "raw": "'rgba(212, 175, 55, 0.2)'"
+            },
+            "position": {
+              "line": 221,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'relative'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:117": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 117
+      },
+      "styles": [
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:119": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 119
+      },
+      "styles": [
+        {
+          "origin": "dynamic",
+          "resolvable": false
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:123": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 123
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dragIndicator",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 233,
+          "properties": {
+            "width": {
+              "line": 234,
+              "col": 11,
+              "endCol": 13,
+              "raw": "40"
+            },
+            "height": {
+              "line": 235,
+              "col": 12,
+              "endCol": 13,
+              "raw": "4"
+            },
+            "borderRadius": {
+              "line": 236,
+              "col": 18,
+              "endCol": 19,
+              "raw": "2"
+            },
+            "backgroundColor": {
+              "line": 237,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(138, 138, 154, 0.4)'"
+            },
+            "alignSelf": {
+              "line": 238,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:126": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 126
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.closeBtn",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 241,
+          "properties": {
+            "position": {
+              "line": 242,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'absolute'"
+            },
+            "width": {
+              "line": 245,
+              "col": 11,
+              "endCol": 13,
+              "raw": "32"
+            },
+            "height": {
+              "line": 246,
+              "col": 12,
+              "endCol": 14,
+              "raw": "32"
+            },
+            "borderRadius": {
+              "line": 247,
+              "col": 18,
+              "endCol": 20,
+              "raw": "16"
+            },
+            "backgroundColor": {
+              "line": 248,
+              "col": 21,
+              "endCol": 47,
+              "raw": "'rgba(138, 138, 154, 0.1)'"
+            },
+            "alignItems": {
+              "line": 249,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 250,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            },
+            "zIndex": {
+              "line": 251,
+              "col": 12,
+              "endCol": 14,
+              "raw": "10"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:135": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 135
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.iconContainer",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 253,
+          "properties": {
+            "alignSelf": {
+              "line": 254,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:136": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 136
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.iconGradient",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 257,
+          "properties": {
+            "width": {
+              "line": 258,
+              "col": 11,
+              "endCol": 13,
+              "raw": "64"
+            },
+            "height": {
+              "line": 259,
+              "col": 12,
+              "endCol": 14,
+              "raw": "64"
+            },
+            "borderRadius": {
+              "line": 260,
+              "col": 18,
+              "endCol": 20,
+              "raw": "32"
+            },
+            "alignItems": {
+              "line": 261,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 262,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            },
+            "borderWidth": {
+              "line": 263,
+              "col": 17,
+              "endCol": 18,
+              "raw": "1"
+            },
+            "borderColor": {
+              "line": 264,
+              "col": 17,
+              "endCol": 42,
+              "raw": "'rgba(212, 175, 55, 0.3)'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:145": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 145
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.title",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 266,
+          "properties": {
+            "fontWeight": {
+              "line": 268,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'700'"
+            },
+            "textAlign": {
+              "line": 270,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            },
+            "letterSpacing": {
+              "line": 271,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.5"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:146": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 146
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.subtitle",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 274,
+          "properties": {
+            "textAlign": {
+              "line": 277,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            },
+            "lineHeight": {
+              "line": 278,
+              "col": 16,
+              "endCol": 18,
+              "raw": "20"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:151": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 151
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitsRow",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 282,
+          "properties": {
+            "flexDirection": {
+              "line": 283,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "justifyContent": {
+              "line": 284,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:152": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 152
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitItem",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 288,
+          "properties": {
+            "flexDirection": {
+              "line": 289,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 290,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 291,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:154": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 154
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitText",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 293,
+          "properties": {
+            "fontWeight": {
+              "line": 296,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:156": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 156
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitItem",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 288,
+          "properties": {
+            "flexDirection": {
+              "line": 289,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 290,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 291,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:158": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 158
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitText",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 293,
+          "properties": {
+            "fontWeight": {
+              "line": 296,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:160": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 160
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitItem",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 288,
+          "properties": {
+            "flexDirection": {
+              "line": 289,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 290,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "gap": {
+              "line": 291,
+              "col": 9,
+              "endCol": 10,
+              "raw": "4"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:162": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 162
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.benefitText",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 293,
+          "properties": {
+            "fontWeight": {
+              "line": 296,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'600'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:167": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 167
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.installBtn",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 298,
+          "properties": {
+            "overflow": {
+              "line": 300,
+              "col": 14,
+              "endCol": 22,
+              "raw": "'hidden'"
+            },
+            "shadowColor": {
+              "line": 302,
+              "col": 17,
+              "endCol": 26,
+              "raw": "'#D4AF37'"
+            },
+            "shadowOpacity": {
+              "line": 304,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.3"
+            },
+            "shadowRadius": {
+              "line": 305,
+              "col": 18,
+              "endCol": 20,
+              "raw": "12"
+            },
+            "elevation": {
+              "line": 306,
+              "col": 15,
+              "endCol": 16,
+              "raw": "8"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:172": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 172
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.installGradient",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 308,
+          "properties": {
+            "flexDirection": {
+              "line": 309,
+              "col": 19,
+              "endCol": 24,
+              "raw": "'row'"
+            },
+            "alignItems": {
+              "line": 310,
+              "col": 16,
+              "endCol": 24,
+              "raw": "'center'"
+            },
+            "justifyContent": {
+              "line": 311,
+              "col": 20,
+              "endCol": 28,
+              "raw": "'center'"
+            },
+            "position": {
+              "line": 315,
+              "col": 14,
+              "endCol": 24,
+              "raw": "'relative'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:179": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 179
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.installBtnText",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 317,
+          "properties": {
+            "fontWeight": {
+              "line": 320,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'800'"
+            },
+            "letterSpacing": {
+              "line": 321,
+              "col": 19,
+              "endCol": 22,
+              "raw": "0.3"
+            },
+            "textAlign": {
+              "line": 322,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            },
+            "flex": {
+              "line": 323,
+              "col": 10,
+              "endCol": 11,
+              "raw": "1"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:187": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 187
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dismissLink",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 325,
+          "properties": {
+            "alignSelf": {
+              "line": 326,
+              "col": 15,
+              "endCol": 23,
+              "raw": "'center'"
+            }
+          }
+        }
+      ]
+    },
+    "SmartInstallBanner@components/SmartInstallBanner.tsx:188": {
+      "element": {
+        "file": "components/SmartInstallBanner.tsx",
+        "line": 188
+      },
+      "styles": [
+        {
+          "origin": "stylesheet",
+          "ref": "styles.dismissText",
+          "file": "components/SmartInstallBanner.tsx",
+          "defLine": 329,
+          "properties": {
+            "fontWeight": {
+              "line": 332,
+              "col": 16,
+              "endCol": 21,
+              "raw": "'500'"
+            }
+          }
         }
       ]
     }
