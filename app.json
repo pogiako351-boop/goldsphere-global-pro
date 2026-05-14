@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GoldSphere Global Pro",
-    "slug": "goldsphere-global-pro",
+    "name": "goldsphere-org",
+    "slug": "goldsphere-org",
     "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -42,8 +42,7 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "baseUrl": ""
+      "typedRoutes": true
     },
     "owner": "mr.vin",
     "extra": {
