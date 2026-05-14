@@ -65,8 +65,8 @@ export default function MoreScreen() {
           <Text style={styles.headerSubtitle}>SETTINGS & TOOLS</Text>
         </View>
 
-        {/* Top Ad */}
-        <AdBanner placement="top" />
+        {/* In-Feed Ad */}
+        <AdBanner placement="mid" />
 
         {/* Fintech Features */}
         <View style={styles.sectionHeader}>

@@ -3,10 +3,9 @@ import { StyleSheet, Text, View, Platform, Pressable, useWindowDimensions } from
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withTiming,
   withRepeat,
+  withTiming,
   Easing,
-  interpolate,
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,25 +13,15 @@ import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type AdVariant = 'sticky-header' | 'bottom-anchor' | 'in-feed';
-type LegacyPlacement = 'top' | 'mid' | 'bottom';
+type AdVariant = 'in-feed';
 
 interface AdBannerProps {
   variant?: AdVariant;
   /** Legacy placement prop for backward compatibility */
-  placement?: LegacyPlacement;
-  /** Whether the user has scrolled past the threshold (for sticky-header hide behavior) */
-  isScrolledPast?: boolean;
+  placement?: string;
   /** Custom ad content label for testing/placeholder */
   contentLabel?: string;
 }
-
-/** Map legacy placement values to new variant system */
-const PLACEMENT_TO_VARIANT: Record<LegacyPlacement, AdVariant> = {
-  top: 'sticky-header',
-  mid: 'in-feed',
-  bottom: 'bottom-anchor',
-};
 
 // ─── Shimmer Skeleton Loader ──────────────────────────────────────────────────
 
@@ -151,15 +140,13 @@ function WebAdSenseContainer({ variant, nativeID }: { variant: AdVariant; native
 export default function AdBanner({
   variant,
   placement,
-  isScrolledPast = false,
   contentLabel,
 }: AdBannerProps) {
-  // Resolve variant from either new `variant` prop or legacy `placement` prop
-  const resolvedVariant: AdVariant = variant || (placement ? PLACEMENT_TO_VARIANT[placement] : 'in-feed');
+  // All variants now resolve to in-feed (non-overlay)
+  const resolvedVariant: AdVariant = 'in-feed';
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isNearViewport, setIsNearViewport] = useState(false);
-  const headerTranslateY = useSharedValue(0);
 
   // Lazy loading simulation - initialize when "near viewport"
   useEffect(() => {
@@ -178,122 +165,37 @@ export default function AdBanner({
     return () => clearTimeout(loadTimer);
   }, [isNearViewport]);
 
-  // Sticky header hide/show animation
-  useEffect(() => {
-    if (resolvedVariant === 'sticky-header') {
-      headerTranslateY.value = withTiming(isScrolledPast ? -120 : 0, {
-        duration: 350,
-        easing: Easing.inOut(Easing.ease),
-      });
-    }
-  }, [isScrolledPast, resolvedVariant, headerTranslateY]);
-
-  const headerAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: headerTranslateY.value }],
-    opacity: interpolate(headerTranslateY.value, [-120, -60, 0], [0, 0.5, 1]),
-  }));
-
-  const getAdHeight = (): number => {
-    switch (resolvedVariant) {
-      case 'sticky-header':
-        return 72;
-      case 'bottom-anchor':
-        return 64;
-      case 'in-feed':
-        return 90;
-      default:
-        return 80;
-    }
-  };
-
   const getLabel = (): string => {
     if (contentLabel) return contentLabel;
-    switch (resolvedVariant) {
-      case 'sticky-header':
-        return 'Premium Header Placement';
-      case 'bottom-anchor':
-        return 'Persistent Anchor Ad';
-      case 'in-feed':
-        return 'In-Feed Sponsored Content';
-      default:
-        return 'Sponsored Content';
-    }
-  };
-
-  const getNativeID = (): string => {
-    switch (resolvedVariant) {
-      case 'sticky-header':
-        return 'adsense-sticky-header';
-      case 'bottom-anchor':
-        return 'adsense-bottom-anchor';
-      case 'in-feed':
-        return 'adsense-in-feed';
-      default:
-        return 'adsense-generic';
-    }
+    return 'In-Feed Sponsored Content';
   };
 
   // Web platform renders AdSense div containers
   if (Platform.OS === 'web') {
-    const containerStyle = [
-      styles.container,
-      styles.bufferMargin,
-      resolvedVariant === 'sticky-header' && styles.stickyHeaderContainer,
-      resolvedVariant === 'bottom-anchor' && styles.bottomAnchorContainer,
-    ];
-
     return (
-      <View style={containerStyle} nativeID={getNativeID()}>
+      <View style={[styles.container, styles.bufferMargin]} nativeID="adsense-in-feed">
         <View style={styles.borderWrapper}>
           <SponsoredLabel />
-          <WebAdSenseContainer variant={resolvedVariant} nativeID={`ad-slot-${resolvedVariant}`} />
+          <WebAdSenseContainer variant={resolvedVariant} nativeID="ad-slot-in-feed" />
         </View>
       </View>
     );
   }
 
-  // Native platform
-  const adContent = (
+  // Native platform - standard in-feed placement
+  return (
     <View style={[styles.container, styles.bufferMargin]}>
       <View style={styles.borderWrapper}>
         {!isNearViewport || !isLoaded ? (
-          <ChampagneShimmerSkeleton height={getAdHeight()} />
+          <ChampagneShimmerSkeleton height={90} />
         ) : (
           <AdContentPlaceholder label={getLabel()} />
         )}
       </View>
     </View>
   );
-
-  // Sticky Header variant with animation
-  if (resolvedVariant === 'sticky-header') {
-    return (
-      <Animated.View style={[styles.stickyHeaderContainer, headerAnimatedStyle]}>
-        {adContent}
-      </Animated.View>
-    );
-  }
-
-  // Bottom Anchor variant - renders inline (parent handles positioning)
-  if (resolvedVariant === 'bottom-anchor') {
-    return adContent;
-  }
-
-  // Standard In-Feed variant
-  return adContent;
 }
 
-// ─── Sticky Header Ad Export ──────────────────────────────────────────────────
-
-export function StickyHeaderAd({ isScrolledPast = false }: { isScrolledPast?: boolean }) {
-  return <AdBanner variant="sticky-header" isScrolledPast={isScrolledPast} />;
-}
-
-// ─── Persistent Bottom Anchor Ad Export ───────────────────────────────────────
-
-export function PersistentBottomAnchorAd() {
-  return <AdBanner variant="bottom-anchor" />;
-}
 
 // ─── Standard In-Feed Ad Export ───────────────────────────────────────────────
 
@@ -308,12 +210,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   bufferMargin: {
-    margin: Spacing.xxl, // 24px buffer from interactive elements
+    marginVertical: Spacing.lg,
+    marginHorizontal: Spacing.md,
   },
   borderWrapper: {
     borderRadius: BorderRadius.md,
     borderWidth: 1,
-    borderColor: Colors.titaniumBorder,
+    borderColor: 'rgba(212, 175, 55, 0.2)',
     backgroundColor: Colors.obsidian,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -321,20 +224,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,
-  },
-  stickyHeaderContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-  },
-  bottomAnchorContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
   },
   shimmerContainer: {
     overflow: 'hidden',
