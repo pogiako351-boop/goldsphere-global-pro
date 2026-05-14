@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, Gradients } from '@/constants/theme';
 import CONFIG from '@/config';
 
 interface MenuItemProps {
@@ -51,7 +51,7 @@ export default function MoreScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

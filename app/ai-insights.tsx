@@ -14,7 +14,7 @@ import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import GoldShimmer from '@/components/GoldShimmer';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { useLivePrices } from '@/hooks/useLivePrices';
 
 interface InsightItem {
@@ -142,7 +142,7 @@ export default function AIInsightsScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

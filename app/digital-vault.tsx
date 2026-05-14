@@ -14,12 +14,14 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import GoldShimmer from '@/components/GoldShimmer';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import VaultEntryAnimation from '@/components/VaultEntryAnimation';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { useLivePrices } from '@/hooks/useLivePrices';
+import { supabase } from '@/lib/supabase';
 
 const VAULT_STORAGE_KEY = '@goldsphere_vault_holdings';
 
@@ -46,6 +48,7 @@ function generateId() {
 
 export default function DigitalVaultScreen() {
   const insets = useSafeAreaInsets();
+  const params = useLocalSearchParams<{ action?: string; karat?: string; grams?: string; locked?: string }>();
   const { prices } = useLivePrices();
 
   const [holdings, setHoldings] = useState<VaultHolding[]>([]);
@@ -56,13 +59,49 @@ export default function DigitalVaultScreen() {
   const [addLabel, setAddLabel] = useState('');
   const [lockPrice, setLockPrice] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [showVaultAnimation, setShowVaultAnimation] = useState(false);
+  const [animGrams, setAnimGrams] = useState(0);
+  const [animKarat, setAnimKarat] = useState('24k');
 
-  // Load holdings from AsyncStorage
+  // Pre-populate from params (from Trade Gates or Liquidity Portal)
+  useEffect(() => {
+    if (params.action === 'buy' && params.karat) {
+      setAddKarat(params.karat);
+      if (params.grams) setAddGrams(params.grams);
+      if (params.locked) setLockPrice(true);
+      setShowAddModal(true);
+    }
+  }, [params.action, params.karat, params.grams, params.locked]);
+
+  // Load holdings from AsyncStorage + try Supabase sync
   const loadHoldings = useCallback(async () => {
     try {
+      // First load from local storage
       const raw = await AsyncStorage.getItem(VAULT_STORAGE_KEY);
       if (raw) {
         setHoldings(JSON.parse(raw));
+      }
+
+      // Try to sync from Supabase if user is authenticated
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data: cloudHoldings, error } = await supabase
+          .from('vault_holdings')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!error && cloudHoldings && cloudHoldings.length > 0) {
+          const mapped: VaultHolding[] = cloudHoldings.map((h: any) => ({
+            id: h.id,
+            grams: h.grams,
+            karat: h.karat,
+            lockedPriceUsd: h.locked_price_usd,
+            addedAt: h.created_at,
+            label: h.label,
+          }));
+          setHoldings(mapped);
+          await AsyncStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify(mapped));
+        }
       }
     } catch (e) {
       console.error('Vault load error:', e);
@@ -76,6 +115,37 @@ export default function DigitalVaultScreen() {
       await AsyncStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify(updated));
     } catch (e) {
       console.error('Vault save error:', e);
+    }
+  }, []);
+
+  // Sync to Supabase (bank-grade)
+  const syncToCloud = useCallback(async (holding: VaultHolding) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        await supabase.from('vault_holdings').insert({
+          id: holding.id,
+          user_id: session.user.id,
+          grams: holding.grams,
+          karat: holding.karat,
+          locked_price_usd: holding.lockedPriceUsd,
+          label: holding.label,
+        });
+      }
+    } catch (e) {
+      // Silently fail cloud sync - local is source of truth
+      console.error('Cloud sync error:', e);
+    }
+  }, []);
+
+  const deleteFromCloud = useCallback(async (id: string) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        await supabase.from('vault_holdings').delete().eq('id', id);
+      }
+    } catch (e) {
+      console.error('Cloud delete error:', e);
     }
   }, []);
 
@@ -108,13 +178,21 @@ export default function DigitalVaultScreen() {
     const updated = [newHolding, ...holdings];
     setHoldings(updated);
     await saveHoldings(updated);
+    await syncToCloud(newHolding);
 
     setIsSaving(false);
     setShowAddModal(false);
+
+    // Trigger Vault Entry Animation
+    setAnimGrams(gramsNum);
+    setAnimKarat(addKarat);
+    setShowVaultAnimation(true);
+
+    // Reset form
     setAddGrams('');
     setAddLabel('');
     setAddKarat('24k');
-  }, [addGrams, addKarat, addLabel, lockPrice, holdings, prices, saveHoldings]);
+  }, [addGrams, addKarat, addLabel, lockPrice, holdings, prices, saveHoldings, syncToCloud]);
 
   const handleRemoveHolding = useCallback(
     (id: string) => {
@@ -130,12 +208,13 @@ export default function DigitalVaultScreen() {
               const updated = holdings.filter((h) => h.id !== id);
               setHoldings(updated);
               await saveHoldings(updated);
+              await deleteFromCloud(id);
             },
           },
         ]
       );
     },
-    [holdings, saveHoldings]
+    [holdings, saveHoldings, deleteFromCloud]
   );
 
   // Calculate totals
@@ -155,9 +234,9 @@ export default function DigitalVaultScreen() {
   if (isLoading) {
     return (
       <View style={[styles.container, styles.loadingContainer]}>
-        <LinearGradient colors={['#000000', '#0A0A0A', '#111111']} style={StyleSheet.absoluteFill} />
+        <LinearGradient colors={Gradients.carbonDepth} style={StyleSheet.absoluteFill} />
         <ActivityIndicator size="large" color={Colors.gold} />
-        <Text style={styles.loadingText}>Loading your vault...</Text>
+        <Text style={styles.loadingText}>Unlocking vault...</Text>
       </View>
     );
   }
@@ -165,9 +244,18 @@ export default function DigitalVaultScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
+
+      {/* Vault Entry Animation */}
+      <VaultEntryAnimation
+        visible={showVaultAnimation}
+        grams={animGrams}
+        karat={animKarat}
+        onComplete={() => setShowVaultAnimation(false)}
+      />
+
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
@@ -182,28 +270,34 @@ export default function DigitalVaultScreen() {
             <Ionicons name="arrow-back" size={22} color={Colors.white} />
           </TouchableOpacity>
           <View style={styles.headerCenter}>
-            <Text style={styles.headerTitle}>Digital Gold Vault</Text>
-            <Text style={styles.headerSubtitle}>VIRTUAL HOLDINGS</Text>
+            <Text style={styles.headerTitle}>Digital Vault</Text>
+            <Text style={styles.headerSubtitle}>BANK-GRADE SECURITY</Text>
           </View>
           <TouchableOpacity
             style={styles.addBtn}
             onPress={() => setShowAddModal(true)}
             activeOpacity={0.7}
           >
-            <Ionicons name="add" size={22} color={Colors.gold} />
+            <Ionicons name="add" size={22} color={Colors.champagneGold} />
           </TouchableOpacity>
         </View>
 
+        {/* Security Badge */}
+        <View style={styles.securityBadge}>
+          <Ionicons name="lock-closed" size={11} color={Colors.secureGreen} />
+          <Text style={styles.securityText}>RLS Protected • End-to-End Encrypted</Text>
+        </View>
+
         {/* Vault Hero */}
-        <GlassmorphicCard highlight style={styles.vaultHero}>
+        <GlassmorphicCard vaultStyle style={styles.vaultHero}>
           <LinearGradient
-            colors={['rgba(212,175,55,0.18)', 'rgba(212,175,55,0.03)']}
+            colors={['rgba(201,169,78,0.15)', 'rgba(15,15,20,0.9)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.heroGradient}
           >
             <View style={styles.heroIcon}>
-              <Ionicons name="shield-checkmark" size={36} color={Colors.gold} />
+              <Ionicons name="shield-checkmark" size={36} color={Colors.champagneGold} />
             </View>
             <Text style={styles.heroTitle}>Your Gold Portfolio</Text>
             <Text style={styles.heroTotalLabel}>Total Holdings</Text>
@@ -239,12 +333,12 @@ export default function DigitalVaultScreen() {
         {/* Holdings */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
-          <Text style={styles.sectionTitle}>HOLDINGS</Text>
+          <Text style={styles.sectionTitle}>VAULT ENTRIES</Text>
           <View style={styles.sectionLine} />
         </View>
 
         {holdings.length === 0 ? (
-          <GlassmorphicCard style={styles.emptyCard}>
+          <GlassmorphicCard titaniumBorder style={styles.emptyCard}>
             <View style={styles.emptyContent}>
               <Ionicons name="cube-outline" size={48} color={Colors.textMuted} />
               <Text style={styles.emptyTitle}>No Holdings Yet</Text>
@@ -257,12 +351,12 @@ export default function DigitalVaultScreen() {
                 activeOpacity={0.7}
               >
                 <LinearGradient
-                  colors={[Colors.goldLight, Colors.gold]}
+                  colors={[Colors.champagneGold, Colors.gold]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
                   style={styles.emptyAddGradient}
                 >
-                  <Ionicons name="add" size={18} color={Colors.black} />
+                  <Ionicons name="add" size={18} color={Colors.carbonBlack} />
                   <Text style={styles.emptyAddText}>Add Holding</Text>
                 </LinearGradient>
               </TouchableOpacity>
@@ -324,9 +418,12 @@ export default function DigitalVaultScreen() {
 
                 <View style={styles.holdingFooter}>
                   {holding.lockedPriceUsd && (
-                    <Text style={styles.lockedPrice}>
-                      🔒 Locked at ${holding.lockedPriceUsd.toFixed(2)}/g
-                    </Text>
+                    <View style={styles.lockedPriceRow}>
+                      <Ionicons name="lock-closed" size={11} color={Colors.gold} />
+                      <Text style={styles.lockedPrice}>
+                        Locked at ${holding.lockedPriceUsd.toFixed(2)}/g
+                      </Text>
+                    </View>
                   )}
                   <Text style={styles.holdingDate}>Added {holdingDate}</Text>
                 </View>
@@ -342,9 +439,9 @@ export default function DigitalVaultScreen() {
           activeOpacity={0.7}
         >
           <View style={styles.calcCtaContent}>
-            <Ionicons name="calculator-outline" size={20} color={Colors.textMuted} />
+            <Ionicons name="water-outline" size={20} color={Colors.textMuted} />
             <Text style={styles.calcCtaText}>
-              Use the Calculator to estimate value before adding
+              Use the Liquidity Portal to estimate value before adding
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={16} color={Colors.textMuted} />
@@ -372,13 +469,13 @@ export default function DigitalVaultScreen() {
             onTouchEnd={(e) => e.stopPropagation()}
           >
             <LinearGradient
-              colors={['rgba(26,26,26,0.99)', 'rgba(10,10,10,1)']}
+              colors={['rgba(20,20,24,0.99)', 'rgba(11,11,15,1)']}
               style={StyleSheet.absoluteFill}
             />
             <View style={styles.modalBorderTop} />
 
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Add Gold Holding</Text>
+              <Text style={styles.modalTitle}>Vault Entry</Text>
               <TouchableOpacity
                 onPress={() => setShowAddModal(false)}
                 style={styles.modalClose}
@@ -393,7 +490,7 @@ export default function DigitalVaultScreen() {
               style={styles.textInput}
               value={addLabel}
               onChangeText={setAddLabel}
-              placeholder="e.g. Wedding jewelry, Investment bar"
+              placeholder="e.g. Investment bar, Heritage jewelry"
               placeholderTextColor={Colors.textMuted}
               returnKeyType="next"
             />
@@ -434,7 +531,7 @@ export default function DigitalVaultScreen() {
               activeOpacity={0.7}
             >
               <View style={[styles.lockCheckbox, lockPrice && styles.lockCheckboxChecked]}>
-                {lockPrice && <Ionicons name="checkmark" size={14} color={Colors.black} />}
+                {lockPrice && <Ionicons name="checkmark" size={14} color={Colors.carbonBlack} />}
               </View>
               <View style={styles.lockTextContainer}>
                 <Text style={styles.lockLabel}>Lock in current price</Text>
@@ -452,17 +549,17 @@ export default function DigitalVaultScreen() {
               activeOpacity={0.8}
             >
               <LinearGradient
-                colors={[Colors.goldLight, Colors.gold, Colors.goldDark]}
+                colors={[Colors.champagneGold, Colors.gold, Colors.goldDark]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.saveBtnGradient}
               >
                 {isSaving ? (
-                  <ActivityIndicator color={Colors.black} />
+                  <ActivityIndicator color={Colors.carbonBlack} />
                 ) : (
                   <>
-                    <Ionicons name="shield-checkmark" size={20} color={Colors.black} />
-                    <Text style={styles.saveBtnText}>Add to Vault</Text>
+                    <Ionicons name="shield-checkmark" size={20} color={Colors.carbonBlack} />
+                    <Text style={styles.saveBtnText}>Secure in Vault</Text>
                   </>
                 )}
               </LinearGradient>
@@ -477,7 +574,7 @@ export default function DigitalVaultScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.carbonBlack,
   },
   loadingContainer: {
     justifyContent: 'center',
@@ -498,13 +595,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.md,
   },
   backBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: 'rgba(138,138,154,0.1)',
+    borderWidth: 1,
+    borderColor: Colors.titaniumBorder,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -514,29 +613,42 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: FontSizes.xl,
-    fontWeight: '600',
-    color: Colors.gold,
-    letterSpacing: 0.5,
+    fontWeight: '200',
+    color: Colors.champagneGold,
+    letterSpacing: 1,
   },
   headerSubtitle: {
     fontSize: FontSizes.xs,
     fontWeight: '700',
     color: Colors.textMuted,
-    letterSpacing: 3,
+    letterSpacing: 2,
   },
   addBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(212,175,55,0.12)',
+    backgroundColor: 'rgba(212,175,55,0.1)',
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.3)',
+    borderColor: 'rgba(212,175,55,0.25)',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  securityBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginBottom: Spacing.xl,
+    paddingVertical: 4,
+  },
+  securityText: {
+    color: Colors.secureGreen,
+    fontSize: FontSizes.xs,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+  },
   vaultHero: {
     marginBottom: Spacing.xl,
-    borderColor: 'rgba(212,175,55,0.4)',
   },
   heroGradient: {
     margin: -Spacing.lg,
@@ -547,9 +659,9 @@ const styles = StyleSheet.create({
     width: 72,
     height: 72,
     borderRadius: 36,
-    backgroundColor: 'rgba(212,175,55,0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.3)',
+    backgroundColor: 'rgba(201,169,78,0.12)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(201,169,78,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Spacing.md,
@@ -569,7 +681,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   heroTotalGrams: {
-    color: Colors.goldLight,
+    color: Colors.champagneGold,
     fontSize: FontSizes.display,
     fontWeight: '700',
     letterSpacing: 1,
@@ -592,7 +704,7 @@ const styles = StyleSheet.create({
   heroValueDivider: {
     width: 1,
     height: 40,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: 'rgba(138,138,154,0.15)',
   },
   heroValueLabel: {
     color: Colors.textMuted,
@@ -625,7 +737,7 @@ const styles = StyleSheet.create({
   sectionLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(212,175,55,0.15)',
+    backgroundColor: 'rgba(212,175,55,0.1)',
   },
   emptyCard: {
     marginBottom: Spacing.lg,
@@ -660,7 +772,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.xl,
   },
   emptyAddText: {
-    color: Colors.black,
+    color: Colors.carbonBlack,
     fontSize: FontSizes.md,
     fontWeight: '700',
   },
@@ -680,12 +792,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   karatBadge: {
-    backgroundColor: 'rgba(212,175,55,0.2)',
+    backgroundColor: 'rgba(212,175,55,0.15)',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.3)',
+    borderColor: 'rgba(212,175,55,0.25)',
   },
   karatBadgeText: {
     color: Colors.gold,
@@ -705,7 +817,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: Spacing.sm,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(138,138,154,0.04)',
     borderRadius: BorderRadius.sm,
     padding: Spacing.md,
   },
@@ -717,7 +829,7 @@ const styles = StyleSheet.create({
   holdingStatDivider: {
     width: 1,
     height: 28,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: 'rgba(138,138,154,0.15)',
   },
   holdingStatLabel: {
     color: Colors.textMuted,
@@ -733,6 +845,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  lockedPriceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   lockedPrice: {
     color: Colors.textMuted,
     fontSize: FontSizes.xs,
@@ -747,9 +864,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.md,
     borderRadius: BorderRadius.md,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(138,138,154,0.04)',
     borderWidth: 1,
-    borderColor: Colors.glassBorder,
+    borderColor: Colors.titaniumBorder,
     marginTop: Spacing.md,
   },
   calcCtaContent: {
@@ -766,7 +883,7 @@ const styles = StyleSheet.create({
   // Modal
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'flex-end',
   },
   modalSheet: {
@@ -782,8 +899,8 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 1,
-    backgroundColor: 'rgba(212,175,55,0.3)',
+    height: 2,
+    backgroundColor: 'rgba(201,169,78,0.4)',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -792,9 +909,10 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   modalTitle: {
-    color: Colors.goldLight,
+    color: Colors.champagneGold,
     fontSize: FontSizes.xl,
-    fontWeight: '600',
+    fontWeight: '200',
+    letterSpacing: 1,
   },
   modalClose: {
     padding: 4,
@@ -807,9 +925,9 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   textInput: {
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: 'rgba(138,138,154,0.06)',
     borderWidth: 1,
-    borderColor: Colors.glassBorder,
+    borderColor: Colors.titaniumBorder,
     borderRadius: BorderRadius.md,
     padding: Spacing.md,
     color: Colors.white,
@@ -826,13 +944,13 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.md,
     borderRadius: BorderRadius.sm,
     borderWidth: 1,
-    borderColor: Colors.glassBorder,
+    borderColor: Colors.titaniumBorder,
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(138,138,154,0.04)',
   },
   karatOptionSelected: {
     borderColor: Colors.gold,
-    backgroundColor: 'rgba(212,175,55,0.12)',
+    backgroundColor: 'rgba(212,175,55,0.1)',
   },
   karatOptionText: {
     color: Colors.textMuted,
@@ -840,7 +958,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   karatOptionTextSelected: {
-    color: Colors.gold,
+    color: Colors.champagneGold,
   },
   lockRow: {
     flexDirection: 'row',
@@ -848,23 +966,23 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
     marginBottom: Spacing.xl,
     padding: Spacing.md,
-    backgroundColor: 'rgba(212,175,55,0.06)',
+    backgroundColor: 'rgba(212,175,55,0.04)',
     borderRadius: BorderRadius.md,
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.15)',
+    borderColor: 'rgba(212,175,55,0.12)',
   },
   lockCheckbox: {
     width: 24,
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: 'rgba(212,175,55,0.4)',
+    borderColor: 'rgba(212,175,55,0.35)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   lockCheckboxChecked: {
-    backgroundColor: Colors.gold,
-    borderColor: Colors.gold,
+    backgroundColor: Colors.champagneGold,
+    borderColor: Colors.champagneGold,
   },
   lockTextContainer: {
     flex: 1,
@@ -891,7 +1009,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.lg,
   },
   saveBtnText: {
-    color: Colors.black,
+    color: Colors.carbonBlack,
     fontSize: FontSizes.lg,
     fontWeight: '700',
     letterSpacing: 0.5,

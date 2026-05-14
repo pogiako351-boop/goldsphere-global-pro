@@ -14,16 +14,19 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useTextGeneration } from '@fastshot/ai';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
-import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import PremiumReferralSlot from '@/components/PremiumReferralSlot';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
 import { useLivePrices } from '@/hooks/useLivePrices';
 
 const CATEGORIES = ['All', 'Investment', 'Education', 'Guide'];
 
+// Keywords that trigger live price widget in articles
+const PRICE_TRIGGER_KEYWORDS = ['inflation', 'central bank', 'safe haven', 'reserve', 'monetary policy'];
+
 interface SentimentResult {
   sentiment: 'Bullish' | 'Bearish' | 'Neutral';
-  score: number; // 0-100, 50 = neutral, >50 bullish, <50 bearish
+  score: number;
   summary: string;
   generatedAt: string;
 }
@@ -44,7 +47,6 @@ function parseSentiment(text: string): SentimentResult {
     score = 45 + Math.floor(Math.random() * 10);
   }
 
-  // Extract first 2-3 sentences as summary
   const sentences = text.split('.').filter((s) => s.trim().length > 10);
   const summary = sentences.slice(0, 2).join('.') + (sentences.length > 2 ? '.' : '');
 
@@ -79,27 +81,23 @@ function SentimentGauge({ score, sentiment }: { score: number; sentiment: 'Bulli
 
   return (
     <View style={gaugeStyles.container}>
-      {/* Gauge bar */}
       <View style={gaugeStyles.track}>
         <LinearGradient
-          colors={['#FF1744', '#FFA500', '#D4AF37', '#00C853']}
+          colors={['#FF1744', '#FFA500', '#D4AF37', '#00E676']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={gaugeStyles.gradient}
         />
-        {/* Pointer */}
         <Animated.View style={[gaugeStyles.pointer, { left: pointerLeft }]}>
           <View style={[gaugeStyles.pointerLine, { backgroundColor: sentimentColor }]} />
           <View style={[gaugeStyles.pointerDot, { backgroundColor: sentimentColor }]} />
         </Animated.View>
       </View>
-      {/* Labels */}
       <View style={gaugeStyles.labels}>
         <Text style={[gaugeStyles.label, { color: Colors.red }]}>Bearish</Text>
         <Text style={[gaugeStyles.label, { color: Colors.gold }]}>Neutral</Text>
         <Text style={[gaugeStyles.label, { color: Colors.green }]}>Bullish</Text>
       </View>
-      {/* Score */}
       <View style={gaugeStyles.scoreRow}>
         <Text style={[gaugeStyles.scoreText, { color: sentimentColor }]}>
           {sentiment}
@@ -115,15 +113,15 @@ const gaugeStyles = StyleSheet.create({
     marginTop: Spacing.md,
   },
   track: {
-    height: 12,
-    borderRadius: 6,
+    height: 10,
+    borderRadius: 5,
     overflow: 'visible',
     marginBottom: Spacing.sm,
     position: 'relative',
   },
   gradient: {
-    height: 12,
-    borderRadius: 6,
+    height: 10,
+    borderRadius: 5,
   },
   pointer: {
     position: 'absolute',
@@ -133,7 +131,7 @@ const gaugeStyles = StyleSheet.create({
   },
   pointerLine: {
     width: 2,
-    height: 24,
+    height: 22,
     borderRadius: 1,
   },
   pointerDot: {
@@ -170,6 +168,73 @@ const gaugeStyles = StyleSheet.create({
   },
 });
 
+/** Live price widget shown when article mentions relevant keywords */
+function LivePriceWidget({ goldPrice, changePercent }: { goldPrice: number; changePercent: number }) {
+  const isUp = changePercent >= 0;
+  return (
+    <View style={widgetStyles.container}>
+      <LinearGradient
+        colors={['rgba(212,175,55,0.1)', 'rgba(15,15,20,0.8)']}
+        style={widgetStyles.gradient}
+      >
+        <View style={widgetStyles.row}>
+          <View style={widgetStyles.dot} />
+          <Text style={widgetStyles.label}>LIVE GOLD</Text>
+          <Text style={widgetStyles.price}>${goldPrice.toFixed(2)}/g</Text>
+          <Text style={[widgetStyles.change, { color: isUp ? Colors.green : Colors.red }]}>
+            {isUp ? '▲' : '▼'} {Math.abs(changePercent).toFixed(2)}%
+          </Text>
+        </View>
+      </LinearGradient>
+    </View>
+  );
+}
+
+const widgetStyles = StyleSheet.create({
+  container: {
+    borderRadius: BorderRadius.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.2)',
+    overflow: 'hidden',
+    marginVertical: Spacing.sm,
+  },
+  gradient: {
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: Colors.green,
+  },
+  label: {
+    color: Colors.textMuted,
+    fontSize: 9,
+    fontWeight: '700',
+    letterSpacing: 1,
+  },
+  price: {
+    color: Colors.champagneGold,
+    fontSize: FontSizes.sm,
+    fontWeight: '700',
+  },
+  change: {
+    fontSize: FontSizes.xs,
+    fontWeight: '600',
+  },
+});
+
+function hasRelevantKeywords(text: string): boolean {
+  const lower = text.toLowerCase();
+  return PRICE_TRIGGER_KEYWORDS.some((kw) => lower.includes(kw));
+}
+
 export default function KnowledgeHubScreen() {
   const insets = useSafeAreaInsets();
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -183,12 +248,12 @@ export default function KnowledgeHubScreen() {
       : articles.filter((a) => a.category === selectedCategory);
 
   const fetchSentiment = useCallback(async () => {
-    const prompt = `You are a gold market analyst. Based on current gold price data:
+    const prompt = `You are an elite gold market analyst serving billionaire-tier clients. Based on current gold price data:
 - 24K gold price: $${prices.goldPricePerGram.toFixed(2)} per gram
 - 24h change: ${prices.goldChangePercent >= 0 ? '+' : ''}${prices.goldChangePercent.toFixed(2)}%
 - Silver: $${prices.silverPricePerGram.toFixed(2)}/g, ${prices.silverChangePercent >= 0 ? '+' : ''}${prices.silverChangePercent.toFixed(2)}%
 
-Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether market sentiment is Bullish, Bearish, or Neutral. Include key factors driving the current sentiment.`;
+Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether market sentiment is Bullish, Bearish, or Neutral. Include key factors driving the current sentiment. Use language appropriate for sophisticated investors.`;
 
     const result = await generateText(prompt);
     if (result) {
@@ -199,7 +264,7 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView
@@ -209,10 +274,12 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
       >
         {/* Header */}
         <View style={styles.header}>
-          <Ionicons name="book" size={28} color={Colors.gold} />
+          <View style={styles.headerIconWrap}>
+            <Ionicons name="library" size={22} color={Colors.champagneGold} />
+          </View>
           <View>
-            <Text style={styles.headerTitle}>Knowledge Hub</Text>
-            <Text style={styles.headerSubtitle}>GOLD EDUCATION & INSIGHTS</Text>
+            <Text style={styles.headerTitle}>Intelligence Hub</Text>
+            <Text style={styles.headerSubtitle}>CONTEXTUAL MARKET INTELLIGENCE</Text>
           </View>
         </View>
 
@@ -220,7 +287,7 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
         <GlassmorphicCard highlight style={styles.sentimentCard}>
           <View style={styles.sentimentHeader}>
             <View style={styles.sentimentTitleRow}>
-              <Ionicons name="pulse" size={18} color={Colors.gold} />
+              <Ionicons name="pulse" size={18} color={Colors.champagneGold} />
               <Text style={styles.sentimentTitle}>Market Sentiment</Text>
               <View style={styles.aiBadge}>
                 <Ionicons name="sparkles" size={10} color={Colors.gold} />
@@ -273,12 +340,12 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
                     activeOpacity={0.7}
                   >
                     <LinearGradient
-                      colors={[Colors.goldLight, Colors.gold]}
+                      colors={[Colors.champagneGold, Colors.gold]}
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 0 }}
                       style={styles.analyzeBtnGradient}
                     >
-                      <Ionicons name="sparkles" size={16} color={Colors.black} />
+                      <Ionicons name="sparkles" size={16} color={Colors.carbonBlack} />
                       <Text style={styles.analyzeBtnText}>Run AI Analysis</Text>
                     </LinearGradient>
                   </TouchableOpacity>
@@ -295,13 +362,13 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
         >
           <GlassmorphicCard highlight style={styles.featuredCard}>
             <LinearGradient
-              colors={['rgba(212, 175, 55, 0.15)', 'rgba(212, 175, 55, 0.02)']}
+              colors={['rgba(212, 175, 55, 0.12)', 'rgba(15, 15, 20, 0.8)']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.featuredGradient}
             >
               <View style={styles.featuredBadge}>
-                <Ionicons name="star" size={12} color={Colors.gold} />
+                <Ionicons name="star" size={12} color={Colors.champagneGold} />
                 <Text style={styles.featuredBadgeText}>FEATURED</Text>
               </View>
               <Text style={styles.featuredTitle}>The 2026 Conflict Economy</Text>
@@ -356,40 +423,50 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
           <View style={styles.sectionLine} />
         </View>
 
-        {filteredArticles.map((article) => (
-          <TouchableOpacity
-            key={article.id}
-            activeOpacity={0.7}
-            onPress={() => router.push(`/article/${article.id}`)}
-          >
-            <GlassmorphicCard style={styles.articleCard}>
-              <View style={styles.articleRow}>
-                <View style={styles.articleIcon}>
-                  <Ionicons
-                    name={article.icon as any}
-                    size={24}
-                    color={Colors.gold}
-                  />
-                </View>
-                <View style={styles.articleContent}>
-                  <View style={styles.articleMeta}>
-                    <Text style={styles.articleCategory}>{article.category}</Text>
-                    <Text style={styles.articleDot}>•</Text>
-                    <Text style={styles.articleReadTime}>{article.readTime}</Text>
+        {filteredArticles.map((article) => {
+          const showPriceWidget = hasRelevantKeywords(article.title + ' ' + article.summary);
+          return (
+            <TouchableOpacity
+              key={article.id}
+              activeOpacity={0.7}
+              onPress={() => router.push(`/article/${article.id}`)}
+            >
+              <GlassmorphicCard titaniumBorder style={styles.articleCard}>
+                <View style={styles.articleRow}>
+                  <View style={styles.articleIcon}>
+                    <Ionicons
+                      name={article.icon as any}
+                      size={24}
+                      color={Colors.champagneGold}
+                    />
                   </View>
-                  <Text style={styles.articleTitle}>{article.title}</Text>
-                  <Text style={styles.articleSummary} numberOfLines={2}>
-                    {article.summary}
-                  </Text>
+                  <View style={styles.articleContent}>
+                    <View style={styles.articleMeta}>
+                      <Text style={styles.articleCategory}>{article.category}</Text>
+                      <Text style={styles.articleDot}>•</Text>
+                      <Text style={styles.articleReadTime}>{article.readTime}</Text>
+                    </View>
+                    <Text style={styles.articleTitle}>{article.title}</Text>
+                    <Text style={styles.articleSummary} numberOfLines={2}>
+                      {article.summary}
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={18} color={Colors.textMuted} />
                 </View>
-                <Ionicons name="chevron-forward" size={18} color={Colors.textMuted} />
-              </View>
-            </GlassmorphicCard>
-          </TouchableOpacity>
-        ))}
+                {/* Contextual Live Price Widget */}
+                {showPriceWidget && (
+                  <LivePriceWidget
+                    goldPrice={prices.goldPricePerGram}
+                    changePercent={prices.goldChangePercent}
+                  />
+                )}
+              </GlassmorphicCard>
+            </TouchableOpacity>
+          );
+        })}
 
-        {/* Ad Banner */}
-        <AdBanner placement="mid" />
+        {/* Premium Referral */}
+        <PremiumReferralSlot placement="mid" />
 
         <View style={{ height: 30 }} />
       </ScrollView>
@@ -400,7 +477,7 @@ Analyze today's gold market sentiment in 2-3 sentences. Clearly state whether ma
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.carbonBlack,
   },
   scrollView: {
     flex: 1,
@@ -415,21 +492,31 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
     marginBottom: Spacing.xl,
   },
+  headerIconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(212,175,55,0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   headerTitle: {
     fontSize: FontSizes.xxl,
-    fontWeight: '300',
-    color: Colors.gold,
+    fontWeight: '200',
+    color: Colors.champagneGold,
     letterSpacing: 1,
   },
   headerSubtitle: {
     fontSize: FontSizes.xs,
     fontWeight: '700',
     color: Colors.textMuted,
-    letterSpacing: 3,
+    letterSpacing: 2,
   },
   sentimentCard: {
     marginBottom: Spacing.xl,
-    borderColor: 'rgba(212,175,55,0.35)',
+    borderColor: 'rgba(212,175,55,0.3)',
   },
   sentimentHeader: {
     flexDirection: 'row',
@@ -454,9 +541,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
-    backgroundColor: 'rgba(212,175,55,0.15)',
+    backgroundColor: 'rgba(212,175,55,0.12)',
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.3)',
+    borderColor: 'rgba(212,175,55,0.25)',
   },
   aiBadgeText: {
     color: Colors.gold,
@@ -472,8 +559,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: BorderRadius.sm,
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.3)',
-    backgroundColor: 'rgba(212,175,55,0.08)',
+    borderColor: 'rgba(212,175,55,0.25)',
+    backgroundColor: 'rgba(212,175,55,0.06)',
   },
   refreshBtnLoading: {
     opacity: 0.7,
@@ -512,14 +599,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.xl,
   },
   analyzeBtnText: {
-    color: Colors.black,
+    color: Colors.carbonBlack,
     fontSize: FontSizes.md,
     fontWeight: '700',
   },
   sentimentSummaryBox: {
     marginTop: Spacing.lg,
     padding: Spacing.md,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(255,255,255,0.03)',
     borderRadius: BorderRadius.sm,
     borderLeftWidth: 2,
     borderLeftColor: Colors.gold,
@@ -538,7 +625,7 @@ const styles = StyleSheet.create({
   },
   featuredCard: {
     marginBottom: Spacing.xl,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
+    borderColor: 'rgba(212, 175, 55, 0.25)',
   },
   featuredGradient: {
     margin: -Spacing.lg,
@@ -551,7 +638,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   featuredBadgeText: {
-    color: Colors.gold,
+    color: Colors.champagneGold,
     fontSize: FontSizes.xs,
     fontWeight: '700',
     letterSpacing: 2,
@@ -599,12 +686,12 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.round,
     borderWidth: 1,
-    borderColor: Colors.glassBorder,
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderColor: Colors.titaniumBorder,
+    backgroundColor: 'rgba(138, 138, 154, 0.04)',
   },
   categoryBtnSelected: {
     borderColor: Colors.gold,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.08)',
   },
   categoryBtnText: {
     color: Colors.textMuted,
@@ -612,7 +699,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   categoryBtnTextSelected: {
-    color: Colors.gold,
+    color: Colors.champagneGold,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -629,7 +716,7 @@ const styles = StyleSheet.create({
   sectionLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
   },
   articleCard: {
     marginBottom: Spacing.md,
@@ -643,7 +730,9 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 12,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.15)',
     alignItems: 'center',
     justifyContent: 'center',
   },

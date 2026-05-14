@@ -1,23 +1,45 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useTextGeneration } from '@fastshot/ai';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { articles } from '@/constants/goldData';
+import { useLivePrices } from '@/hooks/useLivePrices';
 
 export default function ArticleDetailScreen() {
   const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
   const article = articles.find((a) => a.id === id);
+  const { prices } = useLivePrices();
+  const { generateText, isLoading: isInsightLoading } = useTextGeneration();
+  const [proInsight, setProInsight] = useState<string | null>(null);
+
+  const fetchProInsight = useCallback(async () => {
+    if (!article) return;
+
+    const prompt = `You are an elite gold market strategist serving ultra-high-net-worth clients. Based on the following article content and current market data:
+
+Article: "${article.title}"
+Summary: "${article.summary}"
+Current gold price: $${prices.goldPricePerGram.toFixed(2)}/gram (${prices.goldChangePercent >= 0 ? '+' : ''}${prices.goldChangePercent.toFixed(2)}% today)
+
+Provide a "Pro Insight" prediction for the 24-hour gold outlook based on the themes in this article. Be specific about direction (up/down/sideways), give a projected range, and explain key catalysts. 3 sentences max. Professional tone.`;
+
+    const result = await generateText(prompt);
+    if (result) {
+      setProInsight(result);
+    }
+  }, [article, generateText, prices]);
 
   if (!article) {
     return (
       <View style={[styles.container, { paddingTop: insets.top }]}>
         <LinearGradient
-          colors={['#000000', '#0A0A0A', '#111111']}
+          colors={Gradients.carbonDepth}
           style={StyleSheet.absoluteFill}
         />
         <View style={styles.errorContainer}>
@@ -58,7 +80,7 @@ export default function ArticleDetailScreen() {
         );
       }
 
-      if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
+      if (trimmed.startsWith('-')) {
         return (
           <View key={index} style={styles.bulletRow}>
             <View style={styles.bullet} />
@@ -92,7 +114,7 @@ export default function ArticleDetailScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView
@@ -112,8 +134,26 @@ export default function ArticleDetailScreen() {
           >
             <Ionicons name="arrow-back" size={22} color={Colors.white} />
           </TouchableOpacity>
-          <Text style={styles.headerLabel}>Knowledge Hub</Text>
+          <Text style={styles.headerLabel}>Intelligence Hub</Text>
           <View style={styles.backBtnPlaceholder} />
+        </View>
+
+        {/* Live Price Context */}
+        <View style={styles.livePriceStrip}>
+          <LinearGradient
+            colors={['rgba(212,175,55,0.08)', 'rgba(15,15,20,0.6)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.livePriceGradient}
+          >
+            <View style={styles.liveDot} />
+            <Text style={styles.livePriceText}>
+              Gold: ${prices.goldPricePerGram.toFixed(2)}/g
+            </Text>
+            <Text style={[styles.livePriceChange, { color: prices.goldChangePercent >= 0 ? Colors.green : Colors.red }]}>
+              {prices.goldChangePercent >= 0 ? '+' : ''}{prices.goldChangePercent.toFixed(2)}%
+            </Text>
+          </LinearGradient>
         </View>
 
         {/* Article Header */}
@@ -138,6 +178,48 @@ export default function ArticleDetailScreen() {
         {/* Article Content */}
         <View style={styles.articleBody}>{renderContent(article.content)}</View>
 
+        {/* Pro Insight Section - AI Generated */}
+        <GlassmorphicCard vaultStyle style={styles.proInsightCard}>
+          <View style={styles.proInsightHeader}>
+            <View style={styles.proInsightBadge}>
+              <Ionicons name="sparkles" size={14} color={Colors.champagneGold} />
+              <Text style={styles.proInsightBadgeText}>PRO INSIGHT</Text>
+            </View>
+            <Text style={styles.proInsightSubtitle}>24-Hour Gold Outlook</Text>
+          </View>
+
+          {proInsight ? (
+            <View style={styles.proInsightContent}>
+              <Text style={styles.proInsightText}>{proInsight}</Text>
+              <Text style={styles.proInsightDisclaimer}>
+                AI-generated analysis • Not financial advice
+              </Text>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.generateInsightBtn}
+              onPress={fetchProInsight}
+              disabled={isInsightLoading}
+              activeOpacity={0.7}
+            >
+              {isInsightLoading ? (
+                <View style={styles.insightLoading}>
+                  <ActivityIndicator size="small" color={Colors.gold} />
+                  <Text style={styles.insightLoadingText}>Generating pro insight...</Text>
+                </View>
+              ) : (
+                <LinearGradient
+                  colors={['rgba(201,169,78,0.15)', 'rgba(212,175,55,0.05)']}
+                  style={styles.generateBtnGradient}
+                >
+                  <Ionicons name="sparkles" size={18} color={Colors.champagneGold} />
+                  <Text style={styles.generateBtnText}>Generate 24h Outlook</Text>
+                </LinearGradient>
+              )}
+            </TouchableOpacity>
+          )}
+        </GlassmorphicCard>
+
         {/* Related Articles */}
         <View style={styles.relatedSection}>
           <View style={styles.sectionHeader}>
@@ -155,7 +237,7 @@ export default function ArticleDetailScreen() {
                 activeOpacity={0.7}
                 onPress={() => router.push(`/article/${related.id}`)}
               >
-                <GlassmorphicCard style={styles.relatedCard}>
+                <GlassmorphicCard titaniumBorder style={styles.relatedCard}>
                   <Text style={styles.relatedTitle}>{related.title}</Text>
                   <Text style={styles.relatedMeta}>
                     {related.category} · {related.readTime}
@@ -172,7 +254,7 @@ export default function ArticleDetailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.carbonBlack,
   },
   scrollView: {
     flex: 1,
@@ -197,20 +279,22 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gold,
   },
   errorBtnText: {
-    color: Colors.black,
+    color: Colors.carbonBlack,
     fontWeight: '700',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.lg,
   },
   backBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: 'rgba(138, 138, 154, 0.1)',
+    borderWidth: 1,
+    borderColor: Colors.titaniumBorder,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -222,6 +306,35 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.md,
     fontWeight: '600',
   },
+  livePriceStrip: {
+    borderRadius: BorderRadius.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.15)',
+    overflow: 'hidden',
+    marginBottom: Spacing.lg,
+  },
+  livePriceGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+  },
+  liveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: Colors.green,
+  },
+  livePriceText: {
+    color: Colors.champagneGold,
+    fontSize: FontSizes.sm,
+    fontWeight: '600',
+  },
+  livePriceChange: {
+    fontSize: FontSizes.xs,
+    fontWeight: '700',
+  },
   articleHeader: {
     marginBottom: Spacing.lg,
   },
@@ -232,10 +345,12 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   categoryBadge: {
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
     paddingHorizontal: Spacing.md,
     paddingVertical: 4,
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.2)',
   },
   categoryText: {
     color: Colors.gold,
@@ -268,7 +383,7 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
   },
   articleBody: {
     marginBottom: Spacing.xxl,
@@ -280,7 +395,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   contentHeading: {
-    color: Colors.goldLight,
+    color: Colors.champagneGold,
     fontSize: FontSizes.lg,
     fontWeight: '700',
     marginTop: Spacing.lg,
@@ -320,6 +435,77 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     minWidth: 20,
   },
+  // Pro Insight Section
+  proInsightCard: {
+    marginBottom: Spacing.xl,
+  },
+  proInsightHeader: {
+    marginBottom: Spacing.md,
+  },
+  proInsightBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
+  proInsightBadgeText: {
+    color: Colors.champagneGold,
+    fontSize: FontSizes.xs,
+    fontWeight: '800',
+    letterSpacing: 2,
+  },
+  proInsightSubtitle: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.sm,
+  },
+  proInsightContent: {
+    padding: Spacing.md,
+    backgroundColor: 'rgba(201,169,78,0.06)',
+    borderRadius: BorderRadius.sm,
+    borderLeftWidth: 2,
+    borderLeftColor: Colors.champagneGold,
+  },
+  proInsightText: {
+    color: Colors.textSecondary,
+    fontSize: FontSizes.md,
+    lineHeight: 22,
+  },
+  proInsightDisclaimer: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.xs,
+    marginTop: Spacing.sm,
+    fontStyle: 'italic',
+  },
+  generateInsightBtn: {
+    borderRadius: BorderRadius.md,
+    overflow: 'hidden',
+  },
+  insightLoading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.lg,
+    justifyContent: 'center',
+  },
+  insightLoadingText: {
+    color: Colors.textMuted,
+    fontSize: FontSizes.sm,
+    fontStyle: 'italic',
+  },
+  generateBtnGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.lg,
+    borderRadius: BorderRadius.md,
+  },
+  generateBtnText: {
+    color: Colors.champagneGold,
+    fontSize: FontSizes.md,
+    fontWeight: '700',
+  },
+  // Related
   relatedSection: {
     marginBottom: Spacing.lg,
   },
@@ -338,7 +524,7 @@ const styles = StyleSheet.create({
   sectionLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
   },
   relatedCard: {
     marginBottom: Spacing.sm,

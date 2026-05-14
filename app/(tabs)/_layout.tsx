@@ -10,9 +10,10 @@ function TabBarBackground() {
   return (
     <View style={StyleSheet.absoluteFill}>
       <LinearGradient
-        colors={['rgba(26, 26, 26, 0.95)', 'rgba(10, 10, 10, 0.98)']}
+        colors={['rgba(20, 20, 24, 0.97)', 'rgba(11, 11, 15, 0.99)']}
         style={StyleSheet.absoluteFill}
       />
+      {/* Brushed titanium top border */}
       <View style={styles.tabBarTopBorder} />
     </View>
   );
@@ -25,7 +26,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors.gold,
+        tabBarActiveTintColor: Colors.champagneGold,
         tabBarInactiveTintColor: Colors.textMuted,
         tabBarStyle: {
           backgroundColor: 'transparent',
@@ -36,17 +37,18 @@ export default function TabsLayout() {
         },
         tabBarBackground: () => <TabBarBackground />,
         tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: '600',
-          letterSpacing: 0.5,
+          fontSize: 9,
+          fontWeight: '700',
+          letterSpacing: 1,
           marginTop: -2,
+          textTransform: 'uppercase',
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Dashboard',
+          title: 'Trade',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="speedometer-outline" size={size} color={color} />
           ),
@@ -64,18 +66,18 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="calculator"
         options={{
-          title: 'Calculator',
+          title: 'Liquidity',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calculator-outline" size={size} color={color} />
+            <Ionicons name="water-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="hub"
         options={{
-          title: 'Knowledge',
+          title: 'Intel',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="book-outline" size={size} color={color} />
+            <Ionicons name="library-outline" size={size} color={color} />
           ),
         }}
       />
@@ -99,6 +101,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 1,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(138, 138, 154, 0.2)',
   },
 });

@@ -12,12 +12,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import PriceCard from '@/components/PriceCard';
+import TradeGate from '@/components/TradeGate';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
-import AdBanner from '@/components/AdBanner';
-import GoldShimmer from '@/components/GoldShimmer';
+import PremiumReferralSlot from '@/components/PremiumReferralSlot';
+import GoldShimmer, { CTAShimmerOverlay } from '@/components/GoldShimmer';
 import VolatilityBanner from '@/components/VolatilityBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import HotMarketOverlay from '@/components/HotMarketOverlay';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { useLivePrices } from '@/hooks/useLivePrices';
 import { useVolatilityAlerts } from '@/hooks/useVolatilityAlerts';
 import { useLocalization } from '@/hooks/useLocalization';
@@ -35,11 +36,28 @@ export default function DashboardScreen() {
   const { prices, refresh } = useLivePrices();
   const { alerts, dismissAlert } = useVolatilityAlerts(prices);
   const { config } = useLocalization();
+  const [hotMarketVisible, setHotMarketVisible] = useState(false);
+  const [priceVelocity, setPriceVelocity] = useState(0);
+  const prevPriceRef = useRef(prices.goldPricePerGram);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refresh().finally(() => setRefreshing(false));
   }, [refresh]);
+
+  // Alpha Signal Engine: Detect price velocity spikes > 0.5%
+  useEffect(() => {
+    const prevPrice = prevPriceRef.current;
+    const currentPrice = prices.goldPricePerGram;
+    if (prevPrice > 0 && currentPrice > 0) {
+      const velocity = ((currentPrice - prevPrice) / prevPrice) * 100;
+      if (Math.abs(velocity) > 0.5 && !hotMarketVisible) {
+        setPriceVelocity(velocity);
+        setHotMarketVisible(true);
+      }
+    }
+    prevPriceRef.current = currentPrice;
+  }, [prices.goldPricePerGram, hotMarketVisible]);
 
   // Smart karat ordering based on region
   const karatData = React.useMemo(() => {
@@ -57,8 +75,8 @@ export default function DashboardScreen() {
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(headerGlow, { toValue: 1, duration: 2500, useNativeDriver: false }),
-        Animated.timing(headerGlow, { toValue: 0, duration: 2500, useNativeDriver: false }),
+        Animated.timing(headerGlow, { toValue: 1, duration: 3000, useNativeDriver: false }),
+        Animated.timing(headerGlow, { toValue: 0, duration: 3000, useNativeDriver: false }),
       ])
     );
     loop.start();
@@ -67,14 +85,30 @@ export default function DashboardScreen() {
 
   const headerGlowColor = headerGlow.interpolate({
     inputRange: [0, 1],
-    outputRange: ['rgba(212,175,55,0)', 'rgba(212,175,55,0.08)'],
+    outputRange: ['rgba(212,175,55,0)', 'rgba(247,231,206,0.05)'],
   });
+
+  const handleBuy = useCallback((karat: string) => {
+    router.push(`/digital-vault?action=buy&karat=${karat.toLowerCase()}`);
+  }, []);
+
+  const handleSell = useCallback((karat: string) => {
+    router.push(`/digital-vault?action=sell&karat=${karat.toLowerCase()}`);
+  }, []);
 
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#080808', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
+      />
+
+      {/* Hot Market Overlay */}
+      <HotMarketOverlay
+        visible={hotMarketVisible}
+        priceVelocity={priceVelocity}
+        currentPrice={prices.goldPricePerGram}
+        onDismiss={() => setHotMarketVisible(false)}
       />
 
       <ScrollView
@@ -95,7 +129,7 @@ export default function DashboardScreen() {
           <View style={styles.header}>
             <View>
               <Text style={styles.headerTitle}>GoldSphere</Text>
-              <Text style={styles.headerSubtitle}>Global Pro</Text>
+              <Text style={styles.headerSubtitle}>ELITE TRADING</Text>
             </View>
             <View style={styles.headerRight}>
               <View style={styles.regionBadge}>
@@ -126,11 +160,8 @@ export default function DashboardScreen() {
           </View>
         )}
 
-        {/* Top Ad Banner */}
-        <AdBanner placement="top" />
-
         {/* Market Status */}
-        <GlassmorphicCard style={styles.marketStatusCard}>
+        <GlassmorphicCard titaniumBorder style={styles.marketStatusCard}>
           <View style={styles.marketStatusRow}>
             <View style={[styles.marketDot, !prices.isLive && styles.marketDotOffline]} />
             <Text style={[styles.marketStatusText, !prices.isLive && styles.marketStatusTextOffline]}>
@@ -153,10 +184,13 @@ export default function DashboardScreen() {
           <GoldShimmer width={340} height={2} />
         </View>
 
-        {/* Region-aware karat section header */}
+        {/* Premium Referral - Top */}
+        <PremiumReferralSlot placement="top" />
+
+        {/* Trade Gates Section */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
-          <Text style={styles.sectionTitle}>GOLD PRICES (USD)</Text>
+          <Text style={styles.sectionTitle}>TRADE GATES</Text>
           <View style={styles.regionHint}>
             <Text style={styles.regionHintText}>
               {config.preferredKarat} featured for {config.region}
@@ -166,7 +200,7 @@ export default function DashboardScreen() {
         </View>
 
         {karatData.map((item, index) => (
-          <PriceCard
+          <TradeGate
             key={item.karat}
             label={item.label}
             karat={item.karat}
@@ -174,6 +208,8 @@ export default function DashboardScreen() {
             change24h={Math.round(prices.goldChange24h * item.factor * 100) / 100}
             changePercent={prices.goldChangePercent}
             isHighlighted={index === 0}
+            onBuy={() => handleBuy(item.karat)}
+            onSell={() => handleSell(item.karat)}
           />
         ))}
 
@@ -181,25 +217,27 @@ export default function DashboardScreen() {
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.silver} />
           <Text style={[styles.sectionTitle, { color: Colors.silver }]}>SILVER</Text>
-          <View style={[styles.sectionLine, { backgroundColor: 'rgba(192, 192, 192, 0.2)' }]} />
+          <View style={[styles.sectionLine, { backgroundColor: 'rgba(192, 192, 192, 0.15)' }]} />
         </View>
 
-        <PriceCard
+        <TradeGate
           label="Silver (99.9%)"
           karat="AG"
           pricePerGram={prices.silverPricePerGram}
           change24h={prices.silverChange24h}
           changePercent={prices.silverChangePercent}
           isSilver
+          onBuy={() => router.push('/digital-vault')}
+          onSell={() => router.push('/digital-vault')}
         />
 
-        {/* Mid Ad Banner */}
-        <AdBanner placement="mid" />
+        {/* Premium Referral - Mid */}
+        <PremiumReferralSlot placement="mid" />
 
         {/* Quick Actions */}
         <View style={styles.sectionHeader}>
           <Ionicons name="ellipse" size={8} color={Colors.gold} />
-          <Text style={styles.sectionTitle}>QUICK ACTIONS</Text>
+          <Text style={styles.sectionTitle}>COMMAND CENTER</Text>
           <View style={styles.sectionLine} />
         </View>
 
@@ -210,12 +248,14 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
           >
             <LinearGradient
-              colors={['rgba(212, 175, 55, 0.12)', 'rgba(212, 175, 55, 0.04)']}
+              colors={['rgba(212, 175, 55, 0.1)', 'rgba(15, 15, 20, 0.6)']}
               style={styles.actionGradient}
             >
-              <Ionicons name="calculator" size={28} color={Colors.gold} />
-              <Text style={styles.actionLabel}>Calculator</Text>
-              <Text style={styles.actionSubLabel}>Convert gold value</Text>
+              <View style={styles.actionIconWrap}>
+                <Ionicons name="calculator" size={26} color={Colors.champagneGold} />
+              </View>
+              <Text style={styles.actionLabel}>Liquidity Portal</Text>
+              <Text style={styles.actionSubLabel}>Instant cash-out</Text>
             </LinearGradient>
           </TouchableOpacity>
 
@@ -225,12 +265,15 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
           >
             <LinearGradient
-              colors={['rgba(212, 175, 55, 0.15)', 'rgba(212, 175, 55, 0.06)']}
+              colors={['rgba(201, 169, 78, 0.12)', 'rgba(15, 15, 20, 0.6)']}
               style={styles.actionGradient}
             >
-              <Ionicons name="shield-checkmark" size={28} color={Colors.gold} />
+              <View style={styles.actionIconWrap}>
+                <Ionicons name="shield-checkmark" size={26} color={Colors.champagneGold} />
+              </View>
               <Text style={styles.actionLabel}>Digital Vault</Text>
-              <Text style={styles.actionSubLabel}>Track your gold</Text>
+              <Text style={styles.actionSubLabel}>Secure holdings</Text>
+              <CTAShimmerOverlay width={180} height={110} />
             </LinearGradient>
           </TouchableOpacity>
 
@@ -240,11 +283,13 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
           >
             <LinearGradient
-              colors={['rgba(212, 175, 55, 0.12)', 'rgba(212, 175, 55, 0.04)']}
+              colors={['rgba(212, 175, 55, 0.08)', 'rgba(15, 15, 20, 0.6)']}
               style={styles.actionGradient}
             >
-              <Ionicons name="sparkles" size={28} color={Colors.gold} />
-              <Text style={styles.actionLabel}>Pro Insights</Text>
+              <View style={styles.actionIconWrap}>
+                <Ionicons name="sparkles" size={26} color={Colors.champagneGold} />
+              </View>
+              <Text style={styles.actionLabel}>Alpha Engine</Text>
               <Text style={styles.actionSubLabel}>AI predictions</Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -255,12 +300,14 @@ export default function DashboardScreen() {
             activeOpacity={0.7}
           >
             <LinearGradient
-              colors={['rgba(212, 175, 55, 0.12)', 'rgba(212, 175, 55, 0.04)']}
+              colors={['rgba(138, 138, 154, 0.08)', 'rgba(15, 15, 20, 0.6)']}
               style={styles.actionGradient}
             >
-              <Ionicons name="notifications" size={28} color={Colors.gold} />
+              <View style={styles.actionIconWrap}>
+                <Ionicons name="notifications" size={26} color={Colors.titaniumLight} />
+              </View>
               <Text style={styles.actionLabel}>Alerts</Text>
-              <Text style={styles.actionSubLabel}>Set price alerts</Text>
+              <Text style={styles.actionSubLabel}>Price triggers</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -274,7 +321,7 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.carbonBlack,
   },
   scrollView: {
     flex: 1,
@@ -298,14 +345,14 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: FontSizes.xxxl,
-    fontWeight: '300',
-    color: Colors.gold,
-    letterSpacing: 2,
+    fontWeight: '200',
+    color: Colors.champagneGold,
+    letterSpacing: 3,
   },
   headerSubtitle: {
-    fontSize: FontSizes.sm,
+    fontSize: FontSizes.xs,
     fontWeight: '700',
-    color: Colors.white,
+    color: Colors.titaniumLight,
     letterSpacing: 6,
     textTransform: 'uppercase',
     marginTop: -2,
@@ -322,9 +369,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.sm,
     paddingVertical: 4,
     borderRadius: BorderRadius.round,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: 'rgba(138, 138, 154, 0.08)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: Colors.titaniumBorder,
   },
   regionText: {
     color: Colors.textMuted,
@@ -335,9 +382,9 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.08)',
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.25)',
+    borderColor: 'rgba(212, 175, 55, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -376,7 +423,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.sm,
     paddingVertical: 4,
     borderRadius: BorderRadius.sm,
-    backgroundColor: 'rgba(212,175,55,0.1)',
+    backgroundColor: 'rgba(212,175,55,0.08)',
     borderWidth: 1,
     borderColor: 'rgba(212,175,55,0.2)',
   },
@@ -387,7 +434,7 @@ const styles = StyleSheet.create({
   },
   shimmerContainer: {
     alignItems: 'center',
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.lg,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -406,7 +453,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
-    backgroundColor: 'rgba(212,175,55,0.08)',
+    backgroundColor: 'rgba(212,175,55,0.06)',
   },
   regionHintText: {
     color: Colors.textMuted,
@@ -417,7 +464,7 @@ const styles = StyleSheet.create({
   sectionLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
   },
   quickActions: {
     flexDirection: 'row',
@@ -429,15 +476,27 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
-    borderColor: 'rgba(212,175,55,0.2)',
+    borderColor: Colors.titaniumBorder,
     overflow: 'hidden',
   },
   actionGradient: {
     padding: Spacing.lg,
     alignItems: 'center',
     gap: Spacing.sm,
-    minHeight: 110,
+    minHeight: 120,
     justifyContent: 'center',
+    position: 'relative',
+  },
+  actionIconWrap: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(212,175,55,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(212,175,55,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 2,
   },
   actionLabel: {
     color: Colors.white,

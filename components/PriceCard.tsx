@@ -37,7 +37,6 @@ export default function PriceCard({
     if (prevPriceRef.current !== pricePerGram) {
       prevPriceRef.current = pricePerGram;
 
-      // Pulse the price container
       Animated.sequence([
         Animated.parallel([
           Animated.timing(pulseAnim, {
@@ -67,7 +66,6 @@ export default function PriceCard({
     }
   }, [pricePerGram, pulseAnim, glowAnim]);
 
-  // Also animate on mount
   useEffect(() => {
     Animated.sequence([
       Animated.timing(glowAnim, {
@@ -87,13 +85,13 @@ export default function PriceCard({
   const glowColor = glowAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [
-      isUp ? 'rgba(0,200,83,0)' : 'rgba(255,23,68,0)',
-      isUp ? 'rgba(0,200,83,0.15)' : 'rgba(255,23,68,0.15)',
+      isUp ? 'rgba(0,230,118,0)' : 'rgba(255,23,68,0)',
+      isUp ? 'rgba(0,230,118,0.12)' : 'rgba(255,23,68,0.12)',
     ],
   });
 
   return (
-    <GlassmorphicCard highlight={!isSilver || isHighlighted} style={styles.card}>
+    <GlassmorphicCard highlight={!isSilver || isHighlighted} titaniumBorder={isSilver} style={styles.card}>
       <Animated.View
         style={[
           styles.glowOverlay,
@@ -109,7 +107,7 @@ export default function PriceCard({
           )}
           <Text style={styles.label} numberOfLines={1}>{label}</Text>
         </View>
-        <View style={[styles.trendBadge, { backgroundColor: `${trendColor}18` }]}>
+        <View style={[styles.trendBadge, { backgroundColor: `${trendColor}15` }]}>
           <Ionicons name={trendIcon as 'trending-up' | 'trending-down'} size={14} color={trendColor} />
           <Text style={[styles.trendText, { color: trendColor }]}>
             {formatPercent(changePercent)}
@@ -169,17 +167,17 @@ const styles = StyleSheet.create({
     marginRight: Spacing.sm,
   },
   karatBadge: {
-    backgroundColor: 'rgba(212, 175, 55, 0.22)',
+    backgroundColor: 'rgba(212, 175, 55, 0.18)',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: 6,
     marginRight: Spacing.sm,
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
+    borderColor: 'rgba(212, 175, 55, 0.25)',
   },
   silverBadge: {
-    backgroundColor: 'rgba(192, 192, 192, 0.2)',
-    borderColor: 'rgba(192, 192, 192, 0.3)',
+    backgroundColor: 'rgba(192, 192, 192, 0.15)',
+    borderColor: 'rgba(192, 192, 192, 0.25)',
   },
   karatText: {
     color: Colors.gold,
@@ -212,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   price: {
-    color: Colors.goldLight,
+    color: Colors.champagneGold,
     fontSize: FontSizes.xxxl,
     fontWeight: '700',
     letterSpacing: 0.5,

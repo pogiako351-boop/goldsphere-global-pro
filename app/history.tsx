@@ -16,7 +16,7 @@ import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import SimpleLineChart from '@/components/SimpleLineChart';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { generateDailyPrices, generateHistoricalData, exportToCSV, downloadCSV } from '@/constants/goldData';
 
 const VIEW_MODES = ['Daily', 'Weekly', 'Monthly'];
@@ -52,7 +52,7 @@ export default function HistoryScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

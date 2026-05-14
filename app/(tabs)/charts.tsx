@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SimpleLineChart from '@/components/SimpleLineChart';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { generateHistoricalData, goldPrices } from '@/constants/goldData';
 
 const TIME_RANGES = [
@@ -144,7 +144,7 @@ export default function ChartsScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

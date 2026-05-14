@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
-import { Colors, FontSizes, Spacing } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, Gradients } from '@/constants/theme';
 
 export default function TermsOfServiceScreen() {
   const insets = useSafeAreaInsets();
@@ -13,7 +13,7 @@ export default function TermsOfServiceScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

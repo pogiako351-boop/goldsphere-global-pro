@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import GoldShimmer from '@/components/GoldShimmer';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, Gradients } from '@/constants/theme';
 import CONFIG from '@/config';
 
 export default function AboutScreen() {
@@ -16,7 +16,7 @@ export default function AboutScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

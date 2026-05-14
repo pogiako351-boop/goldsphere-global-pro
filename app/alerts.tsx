@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import GlassmorphicCard from '@/components/GlassmorphicCard';
 import AdBanner from '@/components/AdBanner';
-import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { useLocalStorage, STORAGE_KEYS } from '@/hooks/useLocalStorage';
 
 interface PriceAlert {
@@ -93,7 +93,7 @@ export default function AlertsScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#0A0A0A', '#111111']}
+        colors={Gradients.carbonDepth}
         style={StyleSheet.absoluteFill}
       />
       <ScrollView

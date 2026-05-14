@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Colors } from '@/constants/theme';
+import { Colors, Gradients } from '@/constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
@@ -97,7 +97,7 @@ export default function SplashScreen() {
 
   return (
     <LinearGradient
-      colors={['#000000', '#0A0A0A', '#111111', '#0A0A0A', '#000000']}
+      colors={Gradients.carbonDepth}
       style={styles.container}
     >
       {/* Decorative background elements */}
