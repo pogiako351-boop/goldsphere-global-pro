@@ -26,8 +26,8 @@
       "name": "GoldSphere Global Pro",
       "shortName": "GoldSphere",
       "description": "Track live gold and silver prices worldwide",
-      "themeColor": "#000000",
-      "backgroundColor": "#000000"
+      "themeColor": "#0B0B0F",
+      "backgroundColor": "#0B0B0F"
     },
     "plugins": [
       "expo-router",
@@ -35,9 +35,9 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "imageWidth": 280,
           "resizeMode": "contain",
-          "backgroundColor": "#000000"
+          "backgroundColor": "#0B0B0F"
         }
       ]
     ],

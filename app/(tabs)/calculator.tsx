@@ -18,10 +18,12 @@ import PremiumReferralSlot from '@/components/PremiumReferralSlot';
 import { CTAShimmerOverlay } from '@/components/GoldShimmer';
 import LockInCountdown from '@/components/LockInCountdown';
 import ContextualAdInjection from '@/components/ContextualAdInjection';
+import SmartInstallBanner from '@/components/SmartInstallBanner';
 import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
 import { goldPrices, currencyRates, currencySymbols } from '@/constants/goldData';
 import { useLocalization } from '@/hooks/useLocalization';
 import { useLivePrices } from '@/hooks/useLivePrices';
+import { useSmartInstall } from '@/hooks/useSmartInstall';
 
 const PURITIES = ['24k', '22k', '18k', '14k'];
 
@@ -49,6 +51,7 @@ export default function LiquidityPortalScreen() {
   const [lockedPrice, setLockedPrice] = useState(0);
   const { config, convertToGrams } = useLocalization();
   const { prices } = useLivePrices();
+  const { showInstallBanner, dismissBanner, incrementCalculation } = useSmartInstall();
 
   // Lock-in price CTA animation
   const lockPulse = React.useRef(new Animated.Value(1)).current;
@@ -106,6 +109,9 @@ export default function LiquidityPortalScreen() {
     });
 
     setResults(calculatedResults);
+
+    // Track calculation for Smart Install prompt
+    incrementCalculation();
   };
 
   const handleClear = () => {
@@ -426,6 +432,12 @@ export default function LiquidityPortalScreen() {
 
         <View style={{ height: 30 }} />
       </ScrollView>
+
+      {/* Smart Install Banner - triggers after 2nd calculation */}
+      <SmartInstallBanner
+        visible={showInstallBanner}
+        onDismiss={dismissBanner}
+      />
     </View>
   );
 }

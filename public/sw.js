@@ -1,8 +1,15 @@
-const CACHE_NAME = 'goldsphere-v2';
+const CACHE_NAME = 'goldsphere-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.json',
   '/favicon.png',
+  '/icon-64x64.png',
+  '/icon-192x192.png',
+  '/icon-384x384.png',
+  '/icon-512x512.png',
+  '/apple-touch-icon.png',
+  '/apple-touch-icon-152x152.png',
+  '/apple-touch-icon-167x167.png',
 ];
 
 self.addEventListener('install', (event) => {
