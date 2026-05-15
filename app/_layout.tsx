@@ -98,12 +98,12 @@ function injectPWAMeta() {
       document.head.appendChild(navColor);
     }
 
-    // AdSense placeholder script
+    // AdSense script injection
     if (!document.querySelector('script[data-ad-client]')) {
       const adsScript = document.createElement('script');
       adsScript.async = true;
-      adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-      adsScript.setAttribute('data-ad-client', 'ca-pub-XXXXXXXXXXXXXXXX');
+      adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7498656720223965';
+      adsScript.setAttribute('data-ad-client', 'ca-pub-7498656720223965');
       adsScript.crossOrigin = 'anonymous';
       document.head.appendChild(adsScript);
     }

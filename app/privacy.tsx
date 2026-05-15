@@ -69,16 +69,33 @@ export default function PrivacyPolicyScreen() {
             {'Our Service uses cookies for the following purposes: essential functionality (storing your local preferences), advertising (Google AdSense uses cookies for ad personalization), and analytics (anonymous usage tracking). You can control cookies through your browser settings. Disabling cookies may affect some features of the Service.'}
           </Text>
 
+          <Text style={styles.heading}>{'Google AdSense and Cookies'}</Text>
+          <Text style={styles.paragraph}>
+            {'This application uses Google AdSense (Publisher ID: ca-pub-7498656720223965) to display advertisements. Google AdSense uses cookies to serve ads based on your prior visits to this application and other websites on the Internet. Google\'s use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.'}
+          </Text>
+          <Text style={styles.paragraph}>
+            {'Specifically, Google uses the DoubleClick cookie to serve ads to our users based on their visit to our site and other sites on the Internet. The DoubleClick cookie is used by Google in the ads served on the websites of its partners, such as websites displaying Google ads or participating in Google certified ad networks.'}
+          </Text>
+          <Text style={styles.paragraph}>
+            {'You may opt out of personalized advertising by visiting Google Ads Settings at https://www.google.com/settings/ads. Alternatively, you may opt out of third-party vendor cookies for personalized advertising by visiting the Network Advertising Initiative opt-out page at https://www.networkadvertising.org/managing/opt_out.asp or the Digital Advertising Alliance opt-out page at https://optout.aboutads.info.'}
+          </Text>
+
           <Text style={styles.heading}>{'Third-Party Services'}</Text>
           <Text style={styles.paragraph}>
             {'We use the following third-party services:'}
           </Text>
-          <Text style={styles.bullet}>{'- Google AdSense: For displaying advertisements. Google\'s privacy policy applies to data collected through ads.'}</Text>
+          <Text style={styles.bullet}>{'- Google AdSense: For displaying advertisements. Google\'s privacy policy (https://policies.google.com/privacy) applies to data collected through ads. Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this website or other websites.'}</Text>
           <Text style={styles.bullet}>{'- Gold Price APIs: We fetch live market data from third-party APIs. No personal information is shared with these services.'}</Text>
 
           <Text style={styles.heading}>{'Personalized Advertising'}</Text>
           <Text style={styles.paragraph}>
-            {'We partner with premium advertising networks, including Google AdSense, to deliver personalized advertisements tailored to your interests. These networks may collect and use data including: device identifiers and technical information, browsing patterns and interaction data within the Service, approximate geographic location based on IP address, and content preferences inferred from your usage patterns. This data enables the delivery of relevant, high-quality advertisements that align with your financial interests. You may opt out of personalized advertising through your device settings or by visiting the Digital Advertising Alliance\'s opt-out page.'}
+            {'We partner with Google AdSense to deliver personalized advertisements tailored to your interests. Google and other third-party vendors use cookies to serve ads based on your prior visits to this application and other websites. Google\'s use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet.'}
+          </Text>
+          <Text style={styles.paragraph}>
+            {'Third-party vendors and ad networks may collect and use data including: device identifiers and technical information, browsing patterns and interaction data within the Service, approximate geographic location based on IP address, content preferences inferred from your usage patterns, and information from cookies placed on your browser. This data enables the delivery of relevant advertisements.'}
+          </Text>
+          <Text style={styles.paragraph}>
+            {'You may opt out of personalized advertising by: visiting Google Ads Settings (https://www.google.com/settings/ads) to opt out of Google\'s use of cookies for personalized ads; visiting https://www.aboutads.info/choices to opt out of third-party vendors\' use of cookies for personalized advertising; or adjusting your device advertising settings. Note that opting out of personalized ads does not mean you will no longer see ads - it means the ads you see may be less relevant to your interests.'}
           </Text>
 
           <Text style={styles.heading}>{'Data Retention for Advertising'}</Text>

@@ -19,8 +19,8 @@ const CONFIG = {
   // Refresh interval in milliseconds (5 minutes)
   PRICE_REFRESH_INTERVAL: 300000,
 
-  // AdSense Publisher ID - Replace with your own
-  ADSENSE_PUB_ID: 'ca-pub-XXXXXXXXXXXXXXXX',
+  // AdSense Publisher ID
+  ADSENSE_PUB_ID: 'ca-pub-7498656720223965',
 
   // App version
   APP_VERSION: '2.0.0',

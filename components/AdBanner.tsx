@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Platform, Pressable, useWindowDimensions } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withRepeat,
-  withTiming,
-  Easing,
-} from 'react-native-reanimated';
+import { StyleSheet, Text, View, Platform, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors, FontSizes, Spacing, BorderRadius, Gradients } from '@/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius } from '@/constants/theme';
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const ADSENSE_PUB_ID = 'ca-pub-7498656720223965';
+const AD_CONTAINER_VERTICAL_PADDING = 32;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -21,52 +19,6 @@ interface AdBannerProps {
   placement?: string;
   /** Custom ad content label for testing/placeholder */
   contentLabel?: string;
-}
-
-// ─── Shimmer Skeleton Loader ──────────────────────────────────────────────────
-
-function ChampagneShimmerSkeleton({ height }: { height: number }) {
-  const { width: screenWidth } = useWindowDimensions();
-  const translateX = useSharedValue(-screenWidth);
-
-  useEffect(() => {
-    translateX.value = withRepeat(
-      withTiming(screenWidth * 2, {
-        duration: 1800,
-        easing: Easing.inOut(Easing.ease),
-      }),
-      -1,
-      false
-    );
-  }, [screenWidth, translateX]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
-  }));
-
-  return (
-    <View style={[styles.shimmerContainer, { height }]}>
-      <View style={StyleSheet.absoluteFill}>
-        <LinearGradient
-          colors={['rgba(15, 15, 20, 0.9)', 'rgba(20, 20, 28, 0.95)']}
-          style={StyleSheet.absoluteFill}
-        />
-      </View>
-      <Animated.View style={[StyleSheet.absoluteFill, animatedStyle]}>
-        <LinearGradient
-          colors={Gradients.goldShimmer}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={{ width: screenWidth * 0.5, height: '100%' }}
-        />
-      </Animated.View>
-      {/* Skeleton lines */}
-      <View style={styles.skeletonLines}>
-        <View style={[styles.skeletonLine, { width: '60%' }]} />
-        <View style={[styles.skeletonLine, { width: '40%', marginTop: 8 }]} />
-      </View>
-    </View>
-  );
 }
 
 // ─── Ad Info Disclosure Icon ──────────────────────────────────────────────────
@@ -98,8 +50,18 @@ function AdInfoIcon() {
 function SponsoredLabel() {
   return (
     <View style={styles.sponsoredLabelContainer}>
-      <Text style={styles.sponsoredLabelText}>SPONSORED</Text>
+      <Text style={styles.sponsoredLabelText}>Sponsored</Text>
       <AdInfoIcon />
+    </View>
+  );
+}
+
+// ─── Ad Loading Placeholder ──────────────────────────────────────────────────
+
+function AdLoadingPlaceholder() {
+  return (
+    <View style={styles.loadingPlaceholder}>
+      <SponsoredLabel />
     </View>
   );
 }
@@ -127,10 +89,12 @@ function AdContentPlaceholder({ label }: { label: string }) {
 
 // ─── Web AdSense Container ────────────────────────────────────────────────────
 
-function WebAdSenseContainer({ variant, nativeID }: { variant: AdVariant; nativeID: string }) {
+function WebAdSenseContainer() {
   return (
-    <View nativeID={nativeID} style={styles.webAdSenseSlot}>
-      <Text style={styles.webAdSenseText}>AdSense Slot: {nativeID}</Text>
+    <View nativeID="adsense-ad-slot" style={styles.webAdSenseSlot}>
+      <Text style={styles.webAdSenseText}>
+        Ad Unit ({ADSENSE_PUB_ID})
+      </Text>
     </View>
   );
 }
@@ -142,9 +106,6 @@ export default function AdBanner({
   placement,
   contentLabel,
 }: AdBannerProps) {
-  // All variants now resolve to in-feed (non-overlay)
-  const resolvedVariant: AdVariant = 'in-feed';
-
   const [isLoaded, setIsLoaded] = useState(false);
   const [isNearViewport, setIsNearViewport] = useState(false);
 
@@ -173,10 +134,16 @@ export default function AdBanner({
   // Web platform renders AdSense div containers
   if (Platform.OS === 'web') {
     return (
-      <View style={[styles.container, styles.bufferMargin]} nativeID="adsense-in-feed">
+      <View style={styles.container} nativeID="adsense-in-feed">
         <View style={styles.borderWrapper}>
-          <SponsoredLabel />
-          <WebAdSenseContainer variant={resolvedVariant} nativeID="ad-slot-in-feed" />
+          {!isLoaded ? (
+            <AdLoadingPlaceholder />
+          ) : (
+            <>
+              <SponsoredLabel />
+              <WebAdSenseContainer />
+            </>
+          )}
         </View>
       </View>
     );
@@ -184,10 +151,10 @@ export default function AdBanner({
 
   // Native platform - standard in-feed placement
   return (
-    <View style={[styles.container, styles.bufferMargin]}>
+    <View style={styles.container}>
       <View style={styles.borderWrapper}>
         {!isNearViewport || !isLoaded ? (
-          <ChampagneShimmerSkeleton height={90} />
+          <AdLoadingPlaceholder />
         ) : (
           <AdContentPlaceholder label={getLabel()} />
         )}
@@ -208,16 +175,14 @@ export function InFeedAd({ contentLabel }: { contentLabel?: string }) {
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
-  },
-  bufferMargin: {
-    marginVertical: Spacing.lg,
+    paddingVertical: AD_CONTAINER_VERTICAL_PADDING,
     marginHorizontal: Spacing.md,
   },
   borderWrapper: {
     borderRadius: BorderRadius.md,
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.2)',
-    backgroundColor: Colors.obsidian,
+    backgroundColor: '#1A1A1A',
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -225,21 +190,13 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 4,
   },
-  shimmerContainer: {
-    overflow: 'hidden',
-    borderRadius: BorderRadius.md,
-    position: 'relative',
+  loadingPlaceholder: {
+    backgroundColor: '#1A1A1A',
+    minHeight: 90,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  skeletonLines: {
-    paddingHorizontal: Spacing.lg,
-    width: '100%',
-  },
-  skeletonLine: {
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: 'rgba(247, 231, 206, 0.08)',
+    alignItems: 'flex-start',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.lg,
   },
   sponsoredLabelContainer: {
     flexDirection: 'row',
@@ -251,8 +208,8 @@ const styles = StyleSheet.create({
   sponsoredLabelText: {
     color: Colors.textMuted,
     fontSize: FontSizes.xs,
-    fontWeight: '700',
-    letterSpacing: 1.2,
+    fontWeight: '500',
+    letterSpacing: 0.8,
   },
   infoIconWrapper: {
     position: 'relative',
